@@ -1,0 +1,24 @@
+<Solution>
+  <Folder Name="/Src/" />
+  <Folder Name="/Src/Core/">
+    <Project Path="TaskMaster.Application/TaskMaster.Application.csproj" />
+    <Project Path="TaskMaster.Domain/TaskMaster.Domain.csproj" />
+  </Folder>
+  <Folder Name="/Src/Infrastructure/">
+    <Project Path="TaskMaster.Pesrcsstance/TaskMaster.Pesrcsstance.csproj" />
+  </Folder>
+  <Folder Name="/Src/Presentation/">
+    <Project Path="TaskMaster.WebForm/TaskMaster.WebForm.csproj" />
+  </Folder>
+  <Folder Name="/Src/Presentation/Scrypts/">
+    <File Path="../TaskMaster Entity/src/scrypts/DeleteUser.js" />
+    <File Path="../TaskMaster Entity/src/scrypts/elements.js" />
+    <File Path="../TaskMaster Entity/src/scrypts/LoadUsers.js" />
+    <File Path="../TaskMaster Entity/src/scrypts/Login.js" />
+    <File Path="../TaskMaster Entity/src/scrypts/register.js" />
+    <File Path="../TaskMaster Entity/src/scrypts/RenderMessage.js" />
+    <File Path="../TaskMaster Entity/src/scrypts/scrypt.js" />
+    <File Path="../TaskMaster Entity/src/scrypts/ShowEditUserForm.js" />
+    <File Path="../TaskMaster Entity/src/scrypts/ShowProfile.js" />
+  </Folder>
+</Solution>

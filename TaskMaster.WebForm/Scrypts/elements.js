@@ -1,0 +1,34 @@
+export const FirstNameInput = document.querySelector('#txtFirstName');
+export const LastNameInput = document.querySelector('#txtLastName');
+export const UsernameInput = document.querySelector('#txtUsername');
+export const PasswordInput = document.querySelector('#txtPassword');
+export const ConfirmPassword = document.querySelector('#txtConfirmPassword');
+export const RoleSelectors = document.querySelectorAll('.role-option');
+export const SignUpForm = document.querySelector('#form1')
+export const CloseMessageBtn = document.getElementById('closeMessage');
+export const TitleMessageel = document.querySelector('.message-title');
+export const TextMessageel = document.querySelector('.message-text');
+export const ErrorMessageForm = document.getElementById('formMessage');
+export const TotalUsersNum = document.querySelector('.userCount');
+export const DesignerCount = document.querySelector('.designerCount');
+export const InternCount = document.querySelector('.internCount')
+export const SearchUserInput = document.querySelector('.search-input');
+export const DeleteUserBtns = document.querySelectorAll('.action-button.delete');
+export const UserTableEl = document.querySelector('.users-table');
+export const usersTableBody = document.querySelector("tbody");
+export const loginUsernameInput = document.querySelector("#UsernameInput");
+export const loginPasswordInput = document.querySelector('#PasswordInput');
+export const loginForm = document.querySelector("#loginForm");
+export const userFullName = document.querySelector(".profile-name");
+export const userUsername = document.querySelector(".profile-username");
+export const Userinfos = document.querySelectorAll(".info-value");
+export const userLevel = document.querySelector(".level-value");
+export const userScore = document.querySelector(".score-value");
+export const userBadge = document.querySelector(".profile-avatar");
+export const userTopbarBadge = document.querySelector(".topbar-avatar");
+export const usersSidebarName = document.querySelector(".sidebar-user-name");
+export const userSidebarBadge = document.querySelector(".avatar-small");
+export const editProfileBtn = document.querySelector(".edit-button");
+export const RoleBadge = document.querySelector(".role");
+
+
