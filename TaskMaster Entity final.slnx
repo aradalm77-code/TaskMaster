@@ -1,14 +1,14 @@
 <Solution>
   <Folder Name="/Src/" />
   <Folder Name="/Src/Core/">
-    <Project Path="TaskMaster.Application/TaskMaster.Application.csproj" />
-    <Project Path="TaskMaster.Domain/TaskMaster.Domain.csproj" />
+    <Project Path="TaskMaster.Application/TaskMaster.Application.csproj" Id="58d0b400-135b-471a-ab7e-64711d4c4d3e" />
+    <Project Path="TaskMaster.Domain/TaskMaster.Domain.csproj" Id="9b733553-4d00-4b4d-8f35-8dda35d9f3e0" />
   </Folder>
   <Folder Name="/Src/Infrastructure/">
-    <Project Path="TaskMaster.Pesrcsstance/TaskMaster.Pesrcsstance.csproj" />
+    <Project Path="TaskMaster.Pesrcsstance/TaskMaster.Pesrcsstance.csproj" Id="7051a378-d7a8-49af-a979-3a1806efe158" />
   </Folder>
   <Folder Name="/Src/Presentation/">
-    <Project Path="TaskMaster.WebForm/TaskMaster.WebForm.csproj" />
+    <Project Path="TaskMaster.WebForm/TaskMaster.WebForm.csproj" Id="820f3ef5-3d62-42c3-b273-9ea831fb4b03" />
   </Folder>
   <Folder Name="/Src/Presentation/Scrypts/">
     <File Path="../TaskMaster Entity/src/scrypts/DeleteUser.js" />

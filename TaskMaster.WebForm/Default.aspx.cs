@@ -23,6 +23,8 @@ namespace TaskMasterEntity.src.WebForms
         [WebMethod]
         public static RegisteredUserDto Register(string FirstName, string LastName, string Username, string password ,UserEnums.UserRole role)
         {
+            User _user = userService.GetUserByUsername(Username);
+            if (_user != null) throw new Exception("Username already exist");
             User user = new User(FirstName, LastName, Username, password ,role, UserEnums.UserLevel.Beginner);
             userService.AddUser(user);
 
