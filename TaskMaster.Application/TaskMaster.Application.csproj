@@ -52,18 +52,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Features\Users\Dtos\RegisteredUserDto.cs" />
-    <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="Features\Users\Services\UserService\CreateUser.cs" />
+    <Compile Include="Features\Users\Services\UserService\GetUsers.cs" />
+    <Compile Include="Interfaces\ICreateUser.cs" />
+    <Compile Include="Interfaces\IDb.cs" />
+    <Compile Include="Interfaces\IGetUsers.cs" />
+    <Compile Include="Interfaces\IUserDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TaskMaster.Domain\TaskMaster.Domain.csproj">
       <Project>{9b733553-4d00-4b4d-8f35-8dda35d9f3e0}</Project>
       <Name>TaskMaster.Domain</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

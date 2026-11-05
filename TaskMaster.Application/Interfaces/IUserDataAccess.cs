@@ -7,7 +7,7 @@ using TaskMasterEntity.src.Core.Domain.Entities;
 
 namespace TaskMasterEntity.src.Core.Application.Interfaces
 {
-    public interface IUserService
+    public interface IUserDataAccess
     {
         void AddUser(User user);
         void RemoveUser(User user);

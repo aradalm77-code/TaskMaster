@@ -12,7 +12,7 @@ namespace TaskMasterEntity.src.WebForms
 {
     public partial class Users : System.Web.UI.Page
     {
-        private static readonly IUserService userService = new UserService();
+        private static readonly IUserDataAccess userService = new UserDataAcces();
         protected void Page_Load(object sender, EventArgs e)
         {
 

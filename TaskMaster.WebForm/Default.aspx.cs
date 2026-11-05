@@ -10,6 +10,7 @@ using System.Web.Services;
 using TaskMasterEntity.src.Core.Domain.Enums;
 using TaskMasterEntity.src.Core.Domain.Entities;
 using TaskMasterEntity.src.Core.Application.Features.Users.Dtos;
+using TaskMasterEntity.src.Core.Application.Features.Users.Services.UserService;
 
 namespace TaskMasterEntity.src.WebForms
 {
@@ -19,14 +20,12 @@ namespace TaskMasterEntity.src.WebForms
         {
 
         }
-        private static readonly IUserService userService = new UserService();
+        private static readonly ICreateUser createUser;
         [WebMethod]
         public static RegisteredUserDto Register(string FirstName, string LastName, string Username, string password ,UserEnums.UserRole role)
         {
-            User _user = userService.GetUserByUsername(Username);
-            if (_user != null) throw new Exception("Username already exist");
             User user = new User(FirstName, LastName, Username, password ,role, UserEnums.UserLevel.Beginner);
-            userService.AddUser(user);
+            createUser.UserRegister(user);
 
             return new RegisteredUserDto
             {

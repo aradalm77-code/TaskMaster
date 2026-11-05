@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using TaskMasterEntity.src.Core.Domain.Enums;
+using TaskMasterEntity.src.Core.Domain.Interfaces;
 namespace TaskMasterEntity.src.Core.Domain.Entities
 {
-    public class User
+    public class User : IEntity
     {
+        public int Id { get; set; }
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
         public string Username { get; private set; }
         public string Password { get; private set; }
         public int Score { get; private set; }
-        public int Id { get; private set; }
         public UserEnums.UserRole Role { get; private set; }
         public UserEnums.UserLevel Level { get; private set; }
         public User()
