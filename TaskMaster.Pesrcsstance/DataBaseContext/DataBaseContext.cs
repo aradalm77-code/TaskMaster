@@ -21,7 +21,7 @@ namespace TaskMasterEntity.src.Core.Infrastructure.Pesrcsstance
             return base.Set<TEntity>().Add(entity);
         }
 
-        void IDb.DeleteByUsername<TEntity>(int id)
+        void IDb.DeleteById<TEntity>(int id)
         {
             var entity = new TEntity { Id = id };
             base.Set<TEntity>().Attach(entity);

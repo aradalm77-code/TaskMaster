@@ -4,18 +4,12 @@ using System.Linq;
 
 namespace TaskMasterEntity.src.Core.Domain.Enums
 {
-    public class UserEnums
+    public class UserRole
     {
-        public enum UserRole
+        public enum Role
         {
             Designer,
             Intern
-        }
-        public enum UserLevel
-        {
-            Beginner,
-            MidLevel,
-            Advanced
         }
     }
 }

@@ -11,10 +11,9 @@ namespace TaskMasterEntity.src.Core.Application.Interfaces
     {
         void AddUser(User user);
         void RemoveUser(User user);
+        void RemoveUserById(int id);
         void EditUser(User user, string Username);
-        List<User> GetUsers();
-        List<User> SearchUser(string searchTerm);
-        
-        User GetUserByUsername(string Username);
+        List<User> GetUsers(string searchTerm, bool GetByUsername = false);
+        int SaveChanges();
     }
 }

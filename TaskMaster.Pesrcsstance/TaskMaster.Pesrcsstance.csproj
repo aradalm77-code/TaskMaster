@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataBaseContext\IDb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataBaseContext\DataBaseContext.cs" />
     <Compile Include="DataAccess\UserDataAccess.cs" />

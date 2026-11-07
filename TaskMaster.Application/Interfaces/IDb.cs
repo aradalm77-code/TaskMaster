@@ -14,7 +14,7 @@ namespace TaskMasterEntity.src.Core.Application.Interfaces
         IQueryable<TEntity> Set<TEntity>() where TEntity : class, IEntity;
         TEntity Add<TEntity>(TEntity entity) where TEntity : class, IEntity;
         void Remove<TEntity>(TEntity entity) where TEntity : class, IEntity;
-        void DeleteByUsername<TEntity>(int id) where TEntity : class, IEntity, new();
+        void DeleteById<TEntity>(int id) where TEntity : class, IEntity, new();
         int SaveChanges();
     }
 }

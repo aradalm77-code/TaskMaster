@@ -7,9 +7,8 @@ using TaskMasterEntity.src.Core.Domain.Entities;
 
 namespace TaskMasterEntity.src.Core.Application.Interfaces
 {
-    public interface IGetUsers
+    public interface ICreateUser
     {
-        List<User> GetUserList();
-        List<User> SearchUser(string searchItem);
+        void UserRegister(User user);
     }
 }

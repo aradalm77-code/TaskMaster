@@ -1,24 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using TaskMasterEntity.src.Core.Domain.Enums;
 using TaskMasterEntity.src.Core.Domain.Interfaces;
+
 namespace TaskMasterEntity.src.Core.Domain.Entities
 {
     public class User : IEntity
     {
         public int Id { get; set; }
-        public string FirstName { get; private set; }
-        public string LastName { get; private set; }
+        [ForeignKey(nameof(PersonId))]
+        public int PersonId { get; set; }
+        [Index("IX_Username", IsUnique = true)]
         public string Username { get; private set; }
+        public Person Person { get; set; }
         public string Password { get; private set; }
         public int Score { get; private set; }
-        public UserEnums.UserRole Role { get; private set; }
-        public UserEnums.UserLevel Level { get; private set; }
+        public UserRole.Role Role { get; private set; }
+        public UserLevel.Level Level { get; private set; }
         public User()
         {
         }
-        public User(string firstName, string lastName, string username, string password, int score, int id, UserEnums.UserRole role, UserEnums.UserLevel level)
+        public User(string firstName, string lastName, string username, string password, int score, int id, UserRole.Role role, UserLevel.Level level)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -29,7 +33,7 @@ namespace TaskMasterEntity.src.Core.Domain.Entities
             Role = role;
             Level = level;
         }
-        public User(string firstName, string lastName, string username, string password, UserEnums.UserRole role, UserEnums.UserLevel level)
+        public User(string firstName, string lastName, string username, string password, UserRole.Role role, UserLevel.Level level)
         {
             FirstName = firstName;
             LastName = lastName;

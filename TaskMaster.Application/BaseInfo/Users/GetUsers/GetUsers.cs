@@ -10,14 +10,14 @@ namespace TaskMasterEntity.src.Core.Application.Features.Users.Services.UserServ
 {
     public class GetUsers : IGetUsers
     {
-        private readonly IUserDataAccess userDataAccess;
-        public List<User> GetUserList()
+        private readonly IUserDataAccess _userDataAccess;
+        public GetUsers(IUserDataAccess userDataAccess)
         {
-            return userDataAccess.GetUsers();
+            _userDataAccess = userDataAccess;
         }
-        public List<User> SearchUser(string searchItem)
+        public List<User> GetUserList(string searchTerm)
         {
-            return userDataAccess.SearchUser(searchItem);
+            return _userDataAccess.GetUsers(searchTerm);
         }
     }
 }

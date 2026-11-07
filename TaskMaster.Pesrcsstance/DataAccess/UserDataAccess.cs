@@ -18,43 +18,44 @@ namespace TaskMasterEntity.src.Core.Infrastructure.Pesrcsstance.DataAccess
         public void AddUser(User user)
         {
             _context.Add<User>(user);
-            _context.SaveChanges();
         }
 
         public void EditUser(User user, string Username)
         {
-            User _user = GetUserByUsername(Username); 
+            User _user = GetUsers(Username, true)[0];
             if (_user is null) throw new Exception("User Does not exist");
             _user = user;
-            _context.SaveChanges();
-        }
-
-        public User GetUserByUsername(string Username)
-        {
-            List<User> users = (List<User>)_context.Set<User>();
-            User _user = users.FirstOrDefault(e => e.Username == Username);
-            return _user;
-        }
-
-        public List<User> GetUsers()
-        {
-            List<User> users = (List<User>)_context.Query<User>();
-            return users;
         }
 
         public void RemoveUser(User user)
         {
             _context.Remove<User>(user);
-            _context.SaveChanges();
         }
 
-        public List<User> SearchUser(string searchTerm)
+        public void RemoveUserById(int id)
         {
-            List<User> users = (List<User>)_context.Query<User>();
+            _context.DeleteById<User>(id);
+        }
+
+        public int SaveChanges()
+        {
+            return _context.SaveChanges();
+        }
+
+        public List<User> GetUsers(string searchTerm, bool GetByUsername = false)
+        {
+            List<User> users = _context.Query<User>().ToList<User>();
+            if (string.IsNullOrWhiteSpace(searchTerm)) return users;
+            if (GetByUsername)
+            {
+                return users.Where(e =>
+                    e.Username.Equals(searchTerm, StringComparison.OrdinalIgnoreCase)
+                ).ToList();
+            }
             List<User> _users = users.Where(
-                e => e.Username.Equals(searchTerm, StringComparison.CurrentCultureIgnoreCase)
-                || e.FirstName.Equals(searchTerm, StringComparison.CurrentCultureIgnoreCase)
-                || e.LastName.Equals(searchTerm, StringComparison.CurrentCultureIgnoreCase)
+                e => e.Username.Equals(searchTerm, StringComparison.OrdinalIgnoreCase)
+                || e.FirstName.Equals(searchTerm, StringComparison.OrdinalIgnoreCase)
+                || e.LastName.Equals(searchTerm, StringComparison.OrdinalIgnoreCase)
                 ).ToList();
             return _users.Distinct().ToList();
         }

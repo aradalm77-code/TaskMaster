@@ -5,12 +5,12 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using TaskMasterEntity.src.Core.Application.Interfaces;
-using TaskMasterEntity.src.Core.Infrastructure.Pesrcsstance.Services;
 using System.Web.Services;
 using TaskMasterEntity.src.Core.Domain.Enums;
 using TaskMasterEntity.src.Core.Domain.Entities;
-using TaskMasterEntity.src.Core.Application.Features.Users.Dtos;
+using TaskMasterEntity.src.Core.Application.BaseInfo.Users.Dtos;
 using TaskMasterEntity.src.Core.Application.Features.Users.Services.UserService;
+using TaskMasterEntity.src.Core.Infrastructure.Pesrcsstance.DataAccess;
 
 namespace TaskMasterEntity.src.WebForms
 {
@@ -20,14 +20,18 @@ namespace TaskMasterEntity.src.WebForms
         {
 
         }
-        private static readonly ICreateUser createUser;
+        private static readonly IDb _db = new 
+        private static ICreateUser createUser;
         [WebMethod]
-        public static RegisteredUserDto Register(string FirstName, string LastName, string Username, string password ,UserEnums.UserRole role)
+        public static UserDto Register(string FirstName, string LastName, string Username, string password ,UserRole.Role role)
         {
-            User user = new User(FirstName, LastName, Username, password ,role, UserEnums.UserLevel.Beginner);
+            IUserDataAccess userDataAccess = new UserDataAccess();
+            createUser = new CreateUser(userDataAccess);
+
+            User user = new User(FirstName, LastName, Username, password ,role, UserLevel.Level.Beginner);
             createUser.UserRegister(user);
 
-            return new RegisteredUserDto
+            return new UserDto
             {
                 Id = user.Id,
                 FirstName = user.FirstName,
