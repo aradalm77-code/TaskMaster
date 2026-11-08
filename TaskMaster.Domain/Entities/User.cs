@@ -22,10 +22,9 @@ namespace TaskMasterEntity.src.Core.Domain.Entities
         public User()
         {
         }
-        public User(string firstName, string lastName, string username, string password, int score, int id, UserRole.Role role, UserLevel.Level level)
+        public User(string firstName, string lastName, string username, string password, int score, int id, UserRole.Role role, UserLevel.Level level, int age, PersonGender.Gender gender)
         {
-            FirstName = firstName;
-            LastName = lastName;
+            Person = new Person(firstName, lastName, age, gender);
             Username = username;
             Password = password;
             Score = score;
@@ -33,10 +32,9 @@ namespace TaskMasterEntity.src.Core.Domain.Entities
             Role = role;
             Level = level;
         }
-        public User(string firstName, string lastName, string username, string password, UserRole.Role role, UserLevel.Level level)
+        public User(string firstName, string lastName, string username, string password, UserRole.Role role, UserLevel.Level level, int age, PersonGender.Gender gender )
         {
-            FirstName = firstName;
-            LastName = lastName;
+            Person = new Person(firstName, lastName, age, gender);
             Username = username;
             Password = password;
             Score = 0; // Default score

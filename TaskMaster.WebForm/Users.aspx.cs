@@ -5,10 +5,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Services;
-using TaskMasterEntity.src.Core.Domain.Entities;
 using TaskMasterEntity.src.Core.Application.Interfaces;
-using TaskMasterEntity.src.Core.Infrastructure.Pesrcsstance.DataAccess;
 using TaskMasterEntity.src.Core.Application.Features.Users.Services.UserService;
+using TaskMasterEntity.src.Core.Application.BaseInfo.Users.Dtos;
 namespace TaskMasterEntity.src.WebForms
 {
     public partial class Users : System.Web.UI.Page
@@ -21,9 +20,9 @@ namespace TaskMasterEntity.src.WebForms
 
         }
         [WebMethod]
-        public static List<User> LoadUser()
+        public static List<UserDto> LoadUser()
         {
-            List<User> users = getUsers.GetUserList();
+            List<UserDto> users = getUsers.GetUserList("");
             return users;
         }
         [WebMethod]
@@ -32,9 +31,9 @@ namespace TaskMasterEntity.src.WebForms
             deleteUser.Delete(id);
         }
         [WebMethod]
-        public static List<User> SearchUser(string searchTerm)
+        public static List<UserDto> SearchUser<T>(string searchTerm)
         {
-            List<User> users = getUsers.SearchUser(searchTerm);
+            List<UserDto> users = getUsers.GetUserList(searchTerm);
             return users;
         }
     }

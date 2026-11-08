@@ -206,6 +206,70 @@
             line-height: 1.7;
         }
 
+        /* Gender selection */
+        .gender-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .gender-option {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            min-height: 49px;
+            padding: 10px 12px;
+            color: var(--muted);
+            background: rgba(5, 8, 18, .55);
+            border: 1px solid rgba(255, 255, 255, .09);
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: border-color .2s, background .2s, color .2s, transform .2s;
+        }
+
+        .gender-option:hover {
+            border-color: rgba(139, 124, 255, .55);
+            transform: translateY(-1px);
+        }
+
+        .gender-option.active {
+            color: var(--text);
+            border-color: rgba(84, 229, 223, .75);
+            background: linear-gradient(120deg, rgba(84, 229, 223, .12), rgba(139, 124, 255, .12));
+            box-shadow: 0 0 0 3px rgba(84, 229, 223, .06);
+        }
+
+        .gender-option .gender-check {
+            display: grid;
+            place-items: center;
+            width: 17px;
+            height: 17px;
+            border: 1px solid #4c536b;
+            border-radius: 50%;
+            color: transparent;
+            font-size: 10px;
+        }
+
+        .gender-option.active .gender-check {
+            color: #0b0d17;
+            border-color: var(--cyan);
+            background: var(--cyan);
+        }
+
+        .age-input {
+            direction: ltr;
+            text-align: left;
+        }
+
+        .age-input::-webkit-inner-spin-button,
+        .age-input::-webkit-outer-spin-button {
+            opacity: 1;
+        }
+
         .role-section {
             margin-top: 28px;
         }
@@ -764,6 +828,40 @@
                             autocomplete="new-password" />
                     </div>
 
+                    <div class="field">
+                        <label for="txtAge">Age</label>
+                        <asp:TextBox ID="txtAge" runat="server"
+                            CssClass="input age-input"
+                            TextMode="Number"
+                            placeholder="Enter your age"
+                            min="1"
+                            max="120"
+                            step="1" />
+                        <small class="field-hint">Enter your age in years.</small>
+                    </div>
+
+                    <div class="field">
+                        <label>Gender</label>
+                        <asp:HiddenField ID="hfGender" runat="server" Value="" />
+                        <div class="gender-options" id="genderOptions" role="group" aria-label="Choose your gender">
+                            <button type="button"
+                                class="gender-option"
+                                data-gender="Male"
+                                aria-pressed="false">
+                                <span>Male</span>
+                                <span class="gender-check">✓</span>
+                            </button>
+
+                            <button type="button"
+                                class="gender-option"
+                                data-gender="Female"
+                                aria-pressed="false">
+                                <span>Female</span>
+                                <span class="gender-check">✓</span>
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
 
                 <section class="role-section">
@@ -853,6 +951,24 @@
                 roleSwitch.querySelectorAll('.role-option').forEach(function (item) {
                     const isActive = item === option;
 
+                    item.classList.toggle('active', isActive);
+                    item.setAttribute('aria-pressed', String(isActive));
+                });
+            });
+        })();
+
+        (function () {
+            const genderOptions = document.getElementById('genderOptions');
+            const hiddenGender = document.getElementById('<%= hfGender.ClientID %>');
+
+            genderOptions.addEventListener('click', function (event) {
+                const option = event.target.closest('.gender-option');
+                if (!option) return;
+
+                hiddenGender.value = option.dataset.gender;
+
+                genderOptions.querySelectorAll('.gender-option').forEach(function (item) {
+                    const isActive = item === option;
                     item.classList.toggle('active', isActive);
                     item.setAttribute('aria-pressed', String(isActive));
                 });

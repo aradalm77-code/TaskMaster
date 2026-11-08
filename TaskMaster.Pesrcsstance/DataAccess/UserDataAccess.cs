@@ -49,13 +49,13 @@ namespace TaskMasterEntity.src.Core.Infrastructure.Pesrcsstance.DataAccess
             if (GetByUsername)
             {
                 return users.Where(e =>
-                    e.Username.Equals(searchTerm, StringComparison.OrdinalIgnoreCase)
+                    e.Username.Equals(searchTerm)
                 ).ToList();
             }
             List<User> _users = users.Where(
                 e => e.Username.Equals(searchTerm, StringComparison.OrdinalIgnoreCase)
-                || e.FirstName.Equals(searchTerm, StringComparison.OrdinalIgnoreCase)
-                || e.LastName.Equals(searchTerm, StringComparison.OrdinalIgnoreCase)
+                || e.Person.FirstName.Equals(searchTerm, StringComparison.OrdinalIgnoreCase)
+                || e.Person.LastName.Equals(searchTerm, StringComparison.OrdinalIgnoreCase)
                 ).ToList();
             return _users.Distinct().ToList();
         }

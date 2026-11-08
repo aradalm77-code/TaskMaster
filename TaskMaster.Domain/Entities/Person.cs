@@ -9,10 +9,10 @@ namespace TaskMasterEntity.src.Core.Domain.Entities
 {
     public class Person
     {
-        string FirstName { get; set; }
-        string LastName { get; set; }
-        int Age { get; set; }
-        PersonGender.Gender Gender { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public int Age { get; set; }
+        public PersonGender.Gender Gender { get; set; }
         public Person(string firstName, string lastNAme, int age, PersonGender.Gender gender)
         {
             FirstName = firstName;

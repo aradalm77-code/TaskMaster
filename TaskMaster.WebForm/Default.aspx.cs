@@ -6,11 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using TaskMasterEntity.src.Core.Application.Interfaces;
 using System.Web.Services;
-using TaskMasterEntity.src.Core.Domain.Enums;
-using TaskMasterEntity.src.Core.Domain.Entities;
 using TaskMasterEntity.src.Core.Application.BaseInfo.Users.Dtos;
 using TaskMasterEntity.src.Core.Application.Features.Users.Services.UserService;
-using TaskMasterEntity.src.Core.Infrastructure.Pesrcsstance.DataAccess;
 
 namespace TaskMasterEntity.src.WebForms
 {
@@ -20,27 +17,15 @@ namespace TaskMasterEntity.src.WebForms
         {
 
         }
-        private static readonly IDb _db = new 
         private static ICreateUser createUser;
         [WebMethod]
-        public static UserDto Register(string FirstName, string LastName, string Username, string password ,UserRole.Role role)
+        public static UserDto Register(string firstName, string lastName, string username, string password, string gender, int age, string role)
         {
             IUserDataAccess userDataAccess = new UserDataAccess();
             createUser = new CreateUser(userDataAccess);
+            UserDto userDto = createUser.UserRegister(firstName, lastName, username, password, age, gender, role);
+            return userDto;
 
-            User user = new User(FirstName, LastName, Username, password ,role, UserLevel.Level.Beginner);
-            createUser.UserRegister(user);
-
-            return new UserDto
-            {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Username = user.Username,
-                Role = user.Role,
-                Level = user.Level,
-                Score = user.Score
-            };
         }
     }
 }
