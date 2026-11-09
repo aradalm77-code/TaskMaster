@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using TaskMasterEntity.src.Core.Application.BaseInfo.Users.Dtos;
@@ -44,6 +45,7 @@ namespace TaskMasterEntity.src.Core.Application.Features.Users.Services.UserServ
             User user = new User(firstName, lastName, username, password, _role, level, age, _gender);
             if (UserExists(user.Username)) throw new Exception("User with this username alreade exist");
             _userDataAccess.AddUser(user);
+            _userDataAccess.SaveChanges();
             return new UserDto
             {
                 Id = user.Id,
@@ -57,8 +59,8 @@ namespace TaskMasterEntity.src.Core.Application.Features.Users.Services.UserServ
         }
         public bool UserExists(string username)
         {
-            User user = _userDataAccess.GetUsers(username, true)[0];
-            if (user != null) return true;
+            List<User> users = _userDataAccess.GetUsers(username, true);
+            if(users.Count > 0) return true;
             return false;
         }
     }

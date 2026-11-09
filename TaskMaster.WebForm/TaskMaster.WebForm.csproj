@@ -143,6 +143,10 @@
       <Project>{58d0b400-135b-471a-ab7e-64711d4c4d3e}</Project>
       <Name>TaskMaster.Application</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TaskMaster.Pesrcsstance\TaskMaster.Pesrcsstance.csproj">
+      <Project>{7051a378-d7a8-49af-a979-3a1806efe158}</Project>
+      <Name>TaskMaster.Pesrcsstance</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

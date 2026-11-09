@@ -77,13 +77,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseInfo\Users\UserDto.cs" />
-    <Compile Include="BaseInfo\Users\CreateUser\CreateUser.cs" />
-    <Compile Include="BaseInfo\Users\DeleteUser\DeleteUser.cs" />
-    <Compile Include="BaseInfo\Users\GetUsers\GetUsers.cs" />
-    <Compile Include="BaseInfo\Users\CreateUser\ICreateUser.cs" />
-    <Compile Include="BaseInfo\Users\DeleteUser\IDeleteUser.cs" />
-    <Compile Include="BaseInfo\Users\GetUsers\IGetUsers.cs" />
-    <Compile Include="BaseInfo\Users\interfaces\IUserDataAccess.cs" />
+    <Compile Include="BaseInfo\Users\UserManagment\CreateUser.cs" />
+    <Compile Include="BaseInfo\Users\UserManagment\DeleteUser.cs" />
+    <Compile Include="BaseInfo\Users\UserManagment\GetUsers.cs" />
+    <Compile Include="BaseInfo\Users\UserManagment\ICreateUser.cs" />
+    <Compile Include="BaseInfo\Users\UserManagment\IDeleteUser.cs" />
+    <Compile Include="BaseInfo\Users\UserManagment\IGetUsers.cs" />
+    <Compile Include="BaseInfo\Users\IUserDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

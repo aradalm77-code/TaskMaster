@@ -10,11 +10,9 @@ namespace TaskMasterEntity.src.Core.Domain.Entities
     public class User : IEntity
     {
         public int Id { get; set; }
-        [ForeignKey(nameof(PersonId))]
-        public int PersonId { get; set; }
-        [Index("IX_Username", IsUnique = true)]
-        public string Username { get; private set; }
         public Person Person { get; set; }
+        public int PersonId { get; set; }
+        public string Username { get; private set; }
         public string Password { get; private set; }
         public int Score { get; private set; }
         public UserRole.Role Role { get; private set; }
@@ -22,7 +20,7 @@ namespace TaskMasterEntity.src.Core.Domain.Entities
         public User()
         {
         }
-        public User(string firstName, string lastName, string username, string password, int score, int id, UserRole.Role role, UserLevel.Level level, int age, PersonGender.Gender gender)
+        public User(string firstName, string lastName, string username, string password, int score, int id,int personId, UserRole.Role role, UserLevel.Level level, int age, PersonGender.Gender gender)
         {
             Person = new Person(firstName, lastName, age, gender);
             Username = username;
@@ -31,6 +29,7 @@ namespace TaskMasterEntity.src.Core.Domain.Entities
             Id = id;
             Role = role;
             Level = level;
+            Person.Id = PersonId;
         }
         public User(string firstName, string lastName, string username, string password, UserRole.Role role, UserLevel.Level level, int age, PersonGender.Gender gender )
         {
@@ -41,6 +40,7 @@ namespace TaskMasterEntity.src.Core.Domain.Entities
             Id = 0; // Default ID
             Role = role;
             Level = level;
+            Person.Id = 0;
         }
     }
 }

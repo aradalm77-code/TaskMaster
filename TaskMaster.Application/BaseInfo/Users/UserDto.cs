@@ -1,3 +1,5 @@
+using System.Security.Permissions;
+using TaskMasterEntity.src.Core.Domain.Entities;
 using TaskMasterEntity.src.Core.Domain.Enums;
 
 namespace TaskMasterEntity.src.Core.Application.BaseInfo.Users.Dtos

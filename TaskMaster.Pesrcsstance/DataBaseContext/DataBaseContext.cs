@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure.Annotations;
+using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using TaskMasterEntity.src.Core.Application.Interfaces;
 using TaskMasterEntity.src.Core.Domain.Entities;
@@ -35,7 +38,7 @@ namespace TaskMasterEntity.src.Core.Infrastructure.Pesrcsstance
 
         void IDb.Remove<TEntity>(TEntity entity)
         {
-            if(Entry(entity).State == EntityState.Detached)
+            if (Entry(entity).State == EntityState.Detached)
             {
                 base.Set<TEntity>().Attach(entity);
             }
@@ -45,6 +48,16 @@ namespace TaskMasterEntity.src.Core.Infrastructure.Pesrcsstance
         IQueryable<TEntity> IDb.Set<TEntity>()
         {
             return base.Set<TEntity>();
+        }
+        public class UserConfiguration : EntityTypeConfiguration<User>
+        {
+            public UserConfiguration()
+            {
+                HasRequired(u => u.Person)
+                    .WithMany()
+                    .HasForeignKey(u => u.PersonId);
+                HasIndex(i => i.Username).IsUnique();
+            }
         }
     }
 }

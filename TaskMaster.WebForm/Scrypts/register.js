@@ -62,6 +62,8 @@ const Register = (e) => {
         LastNameInput.value,
         username,
         password,
+        "male",
+        20,
         role,
         function (registeredUser) {
             if (!registeredUser) {

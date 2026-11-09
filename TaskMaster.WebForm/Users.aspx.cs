@@ -8,13 +8,13 @@ using System.Web.Services;
 using TaskMasterEntity.src.Core.Application.Interfaces;
 using TaskMasterEntity.src.Core.Application.Features.Users.Services.UserService;
 using TaskMasterEntity.src.Core.Application.BaseInfo.Users.Dtos;
+using Autofac;
 namespace TaskMasterEntity.src.WebForms
 {
     public partial class Users : System.Web.UI.Page
     {
-        private static readonly IUserDataAccess userDataAccess = new UserDataAccess();
-        private static readonly IDeleteUser deleteUser = new DeleteUser(userDataAccess);
-        private static readonly IGetUsers getUsers = new GetUsers(userDataAccess);
+        private static IDeleteUser deleteUser { get; set; }
+        public static IGetUsers getUsers { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -22,13 +22,21 @@ namespace TaskMasterEntity.src.WebForms
         [WebMethod]
         public static List<UserDto> LoadUser()
         {
-            List<UserDto> users = getUsers.GetUserList("");
-            return users;
+            using (var scope = Global.Container.BeginLifetimeScope())
+            {
+                getUsers = scope.Resolve<IGetUsers>();
+                List<UserDto> users = getUsers.GetUserList("");
+                return users;
+            }
         }
         [WebMethod]
         public static void DeleteUser(int id)
         {
-            deleteUser.Delete(id);
+            using (var scope = Global.Container.BeginLifetimeScope())
+            {
+                deleteUser = scope.Resolve<IDeleteUser>();
+                deleteUser.Delete(id);
+            }
         }
         [WebMethod]
         public static List<UserDto> SearchUser<T>(string searchTerm)

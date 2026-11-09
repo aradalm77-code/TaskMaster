@@ -44,7 +44,7 @@ namespace TaskMasterEntity.src.Core.Infrastructure.Pesrcsstance.DataAccess
 
         public List<User> GetUsers(string searchTerm, bool GetByUsername = false)
         {
-            List<User> users = _context.Query<User>().ToList<User>();
+            List<User> users = _context.Query<User>().Include(u => u.Person).ToList<User>();
             if (string.IsNullOrWhiteSpace(searchTerm)) return users;
             if (GetByUsername)
             {
