@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TaskMasterEntity.src.Core.Domain.Interfaces;
 
 namespace TaskMasterEntity.src.Core.Application.Interfaces

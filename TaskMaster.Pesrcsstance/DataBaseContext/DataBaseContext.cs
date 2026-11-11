@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure.Annotations;
+﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using TaskMasterEntity.src.Core.Application.Interfaces;
 using TaskMasterEntity.src.Core.Domain.Entities;
-using TaskMasterEntity.src.Core.Domain.Interfaces;
 
 namespace TaskMasterEntity.src.Core.Infrastructure.Pesrcsstance
 {

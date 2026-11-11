@@ -1,10 +1,5 @@
 ﻿using Autofac;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Security;
-using System.Web.SessionState;
 using TaskMasterEntity.src.Core.Application.Interfaces;
 using TaskMasterEntity.src.Core.Application.Features.Users.Services.UserService;
 using TaskMasterEntity.src.Core.Infrastructure.Pesrcsstance;

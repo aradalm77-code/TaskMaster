@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using TaskMasterEntity.src.Core.Domain.Enums;
+﻿using TaskMasterEntity.src.Core.Domain.Enums;
 using TaskMasterEntity.src.Core.Domain.Interfaces;
 
 namespace TaskMasterEntity.src.Core.Domain.Entities
