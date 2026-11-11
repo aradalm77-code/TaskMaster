@@ -41,19 +41,22 @@ namespace TaskMasterEntity.src.Core.Infrastructure.Pesrcsstance.DataAccess
             return user;
         }
 
-        public List<User> GetUsers(string searchTerm)
+        public List<User> GetUsers(string searchTerm = null)
         {
-            List<User> users = _context.Query<User>().Include(u => u.Person).ToList<User>();
-
-            if (string.IsNullOrWhiteSpace(searchTerm)) return users;
-
-            List<User> _users = users.Where(
+            if (string.IsNullOrWhiteSpace(searchTerm))
+            {
+                List<User> users = _context.Query<User>().Include(u => u.Person).ToList<User>();
+                return users;
+            }
+            else
+            {
+                List<User> users = _context.Query<User>().Where(
                 e => e.Username.Equals(searchTerm, StringComparison.OrdinalIgnoreCase)
                 || e.Person.FirstName.Equals(searchTerm, StringComparison.OrdinalIgnoreCase)
                 || e.Person.LastName.Equals(searchTerm, StringComparison.OrdinalIgnoreCase)
-                ).ToList();
-
-            return _users.Distinct().ToList();
+                ).Distinct().ToList();
+                return users;
+            }
         }
     }
 }
