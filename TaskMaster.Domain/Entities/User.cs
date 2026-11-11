@@ -12,11 +12,11 @@ namespace TaskMasterEntity.src.Core.Domain.Entities
         public int Id { get; set; }
         public Person Person { get; set; }
         public int PersonId { get; set; }
-        public string Username { get; private set; }
-        public string Password { get; private set; }
-        public int Score { get; private set; }
-        public UserRole.Role Role { get; private set; }
-        public UserLevel.Level Level { get; private set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public int Score { get; set; }
+        public UserRole.Role Role { get; set; }
+        public UserLevel.Level Level { get; set; }
         public User()
         {
         }

@@ -13,7 +13,7 @@ namespace TaskMasterEntity.src.Core.Application.Interfaces
         void RemoveUser(User user);
         void RemoveUserById(int id);
         void EditUser(User user, string Username);
-        List<User> GetUsers(string searchTerm, bool GetByUsername = false);
-        int SaveChanges();
+        List<User> GetUsers(string searchTerm);
+        User GetUserByUsername(string username);
     }
 }

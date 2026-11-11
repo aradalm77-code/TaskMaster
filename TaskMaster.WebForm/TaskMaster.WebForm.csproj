@@ -95,21 +95,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Css\Register.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
-    <Content Include="Scrypts\DeleteUser.js" />
-    <Content Include="Scrypts\elements.js" />
-    <Content Include="Scrypts\LoadUsers.js" />
-    <Content Include="Scrypts\Login.js" />
-    <Content Include="Scrypts\register.js" />
-    <Content Include="Scrypts\RenderMessage.js" />
-    <Content Include="Scrypts\scrypt.js" />
-    <Content Include="Scrypts\ShowEditUserForm.js" />
-    <Content Include="Scrypts\ShowProfile.js" />
     <Content Include="Users.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Css\Users.css" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -142,6 +135,10 @@
     <ProjectReference Include="..\TaskMaster.Application\TaskMaster.Application.csproj">
       <Project>{58d0b400-135b-471a-ab7e-64711d4c4d3e}</Project>
       <Name>TaskMaster.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TaskMaster.Domain\TaskMaster.Domain.csproj">
+      <Project>{9B733553-4D00-4B4D-8F35-8DDA35D9F3E0}</Project>
+      <Name>TaskMaster.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\TaskMaster.Pesrcsstance\TaskMaster.Pesrcsstance.csproj">
       <Project>{7051a378-d7a8-49af-a979-3a1806efe158}</Project>

@@ -10,15 +10,7 @@
   <Folder Name="/Src/Presentation/">
     <Project Path="TaskMaster.WebForm/TaskMaster.WebForm.csproj" Id="820f3ef5-3d62-42c3-b273-9ea831fb4b03" />
   </Folder>
-  <Folder Name="/Src/Presentation/Scrypts/">
-    <File Path="../TaskMaster Entity/src/scrypts/DeleteUser.js" />
-    <File Path="../TaskMaster Entity/src/scrypts/elements.js" />
-    <File Path="../TaskMaster Entity/src/scrypts/LoadUsers.js" />
-    <File Path="../TaskMaster Entity/src/scrypts/Login.js" />
-    <File Path="../TaskMaster Entity/src/scrypts/register.js" />
-    <File Path="../TaskMaster Entity/src/scrypts/RenderMessage.js" />
-    <File Path="../TaskMaster Entity/src/scrypts/scrypt.js" />
-    <File Path="../TaskMaster Entity/src/scrypts/ShowEditUserForm.js" />
-    <File Path="../TaskMaster Entity/src/scrypts/ShowProfile.js" />
+  <Folder Name="/Test/">
+    <Project Path="TaskMaster.Application.Tests/TaskMaster.Application.Tests.csproj" Id="4c6c6343-5d97-4302-96d9-4869df40bbe5" />
   </Folder>
 </Solution>

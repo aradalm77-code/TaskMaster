@@ -9,16 +9,21 @@ using TaskMasterEntity.src.Core.Application.Interfaces;
 using TaskMasterEntity.src.Core.Application.Features.Users.Services.UserService;
 using TaskMasterEntity.src.Core.Infrastructure.Pesrcsstance;
 using TaskMasterEntity.src.Core.Infrastructure.Pesrcsstance.DataAccess;
+using Autofac.Integration.Web;
 
 namespace TaskMasterEntity.src.WebForms
 {
-    public class Global : System.Web.HttpApplication
+    public class Global : System.Web.HttpApplication, IContainerProviderAccessor
     {
-        public static IContainer Container { get; set; }
+        public static IContainerProvider _containerProvider;
+        public IContainerProvider ContainerProvider { get { return _containerProvider; } }
         protected void Application_Start(object sender, EventArgs e)
         {
             var builder = new ContainerBuilder();
-            builder.RegisterType<DataBaseContext>().As<IDb>().InstancePerLifetimeScope();
+            builder.RegisterType<DataBaseContext>()
+                   .AsSelf()
+                   .As<IDb>()
+                   .InstancePerLifetimeScope();
 
             builder.RegisterType<UserDataAccess>()
                    .As<IUserDataAccess>()
@@ -33,7 +38,8 @@ namespace TaskMasterEntity.src.WebForms
                    .As<IGetUsers>()
                    .InstancePerLifetimeScope();
 
-            Container = builder.Build();
+            var container = builder.Build();
+            _containerProvider = new ContainerProvider(container);
         }
 
         protected void Session_Start(object sender, EventArgs e)
