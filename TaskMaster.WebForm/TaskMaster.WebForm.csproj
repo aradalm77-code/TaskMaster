@@ -95,20 +95,45 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Components\UserItem.ascx" />
+    <Content Include="Css\Message.css" />
     <Content Include="Css\Register.css" />
     <Content Include="Default.aspx" />
+    <Content Include="EditUser.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Users.aspx" />
     <Content Include="Web.config" />
+    <Content Include="Components\MessageControl.ascx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\MessageControl.ascx.cs">
+      <DependentUpon>MessageControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\MessageControl.ascx.designer.cs">
+      <DependentUpon>MessageControl.ascx</DependentUpon>
+    </Compile>
     <Content Include="Css\Users.css" />
+    <Compile Include="Components\UserItem.ascx.cs">
+      <DependentUpon>UserItem.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\UserItem.ascx.designer.cs">
+      <DependentUpon>UserItem.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditUser.aspx.cs">
+      <DependentUpon>EditUser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditUser.aspx.designer.cs">
+      <DependentUpon>EditUser.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -145,6 +170,7 @@
       <Name>TaskMaster.Pesrcsstance</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

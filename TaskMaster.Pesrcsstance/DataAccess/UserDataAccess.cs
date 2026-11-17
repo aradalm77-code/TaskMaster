@@ -2,61 +2,55 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using TaskMasterEntity.src.Core.Application.BaseInfo.UserManagment;
 using TaskMasterEntity.src.Core.Application.Interfaces;
 using TaskMasterEntity.src.Core.Domain.Entities;
 
 namespace TaskMasterEntity.src.Core.Infrastructure.Pesrcsstance.DataAccess
 {
-    public class UserDataAccess : IUserDataAccess
+    public class UserDataAccess(ISearchUsers searchUser, IDb _context, ISearchPersons searchPersons) : IUserDataAccess
     {
-        private IDb _context;
-        public UserDataAccess(IDb context)
+        public void AddUser(IUserDataAccess.Request request)
         {
-            _context = context;
-        }
-        public void AddUser(User user)
-        {
-            _context.Add<User>(user);
+            _context.Add<User>(request.User);
         }
 
-        public void EditUser(User user, string Username)
+        public void EditUser(IUserDataAccess.Request request)
         {
-            User _user = GetUserByUsername(Username);
-            if (_user is null) throw new Exception("User Does not exist");
-            _user = user;
+            User existingUser = GetUserByUsername(new IUserDataAccess.Request { Username = request.Username });
+
+            if (existingUser == null)
+                throw new Exception("User does not exist");
+
+            existingUser = request.User;
+            Person person = existingUser.Person;
+            _context.Update<User>(existingUser);
+            _context.Update<Person>(person);
         }
 
-        public void RemoveUser(User user)
+        public void RemoveUser(IUserDataAccess.Request request)
         {
-            _context.Remove<User>(user);
+            Person person = request.User.Person;
+            _context.Remove<User>(request.User);
+            _context.Remove<Person>(person);
         } 
 
-        public void RemoveUserById(int id)
+        public void RemoveUserById(IUserDataAccess.Request request)
         {
-            _context.DeleteById<User>(id);
+            if (!searchUser.Search(new ISearchUsers.Request { Id = request.Id }).Any(u => u.Id == request.Id ))
+                return;
+            _context.DeleteById<User>(request.Id);
         }
-        public User GetUserByUsername(string username)
+        public User GetUserByUsername(IUserDataAccess.Request request)
         {
-            User user = _context.Query<User>().FirstOrDefault(u => u.Username == username);
+            User user = searchUser.Search().FirstOrDefault(u => u.Username == request.Username);
+            user.Person = searchPersons.SearchPeople(new ISearchPersons.Request { Id = user.PersonId }).FirstOrDefault();
             return user;
         }
 
-        public List<User> GetUsers(string searchTerm = null)
+        public IQueryable<User> GetAllUsers()
         {
-            if (string.IsNullOrWhiteSpace(searchTerm))
-            {
-                List<User> users = _context.Query<User>().Include(u => u.Person).ToList<User>();
-                return users;
-            }
-            else
-            {
-                List<User> users = _context.Query<User>().Where(
-                e => e.Username.Equals(searchTerm, StringComparison.OrdinalIgnoreCase)
-                || e.Person.FirstName.Equals(searchTerm, StringComparison.OrdinalIgnoreCase)
-                || e.Person.LastName.Equals(searchTerm, StringComparison.OrdinalIgnoreCase)
-                ).Distinct().ToList();
-                return users;
-            }
+            return searchUser.Search();
         }
     }
 }

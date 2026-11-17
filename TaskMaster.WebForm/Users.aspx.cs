@@ -1,39 +1,71 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.Services;
 using TaskMasterEntity.src.Core.Application.Interfaces;
-using TaskMasterEntity.src.Core.Application.Features.Users.Services.UserService;
 using Autofac;
+using System.Collections.Generic;
+using System.Linq;
+using TaskMasterEntity.src.Core.Application.BaseInfo.UserManagment;
+using TaskMasterEntity.src.Core.Domain.Entities;
+
 namespace TaskMasterEntity.src.WebForms
 {
     public partial class Users : System.Web.UI.Page
     {
-        private IDeleteUser deleteUser { get; set; }
+        public ISearchUsers searchUser { get; set; }
         public IGetUsers getUsers { get; set; }
+        public ISearchPersons searchPersons { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            UsersRepeater.ItemDataBound += UsersRepeater_ItemDataBound;
 
+            if (!IsPostBack)
+            {
+                List<User> users = getUsers.GetUserList().ToList();
+                foreach (var user in users)
+                {
+                    user.Person = searchPersons.SearchPeople(new ISearchPersons.Request { Id = user.PersonId }).FirstOrDefault();
+                }
+                LoadUsers(users);
+            }
         }
-        [WebMethod]
-        public List<IGetUsers.UserDto> LoadUser()
+        protected void btnSearch_Click(object sender, EventArgs e)
         {
-            List<IGetUsers.UserDto> users = getUsers.GetUserList("");
-            return users;
+            string searchTerm = txtSearch.Text;
+            
+            ISearchUsers.Request request = new ISearchUsers.Request
+            {
+                SearchItem = searchTerm
+            };
+            List<User> users = searchUser.Search(request).ToList();
+
+            UsersRepeater.DataSource = users;
+            UsersRepeater.DataBind();
         }
-        [WebMethod]
-        public void DeleteUser(int id)
+        private void LoadUsers(List<User> users)
         {
-            deleteUser.Delete(id);
+            UsersRepeater.DataSource = users;
+            UsersRepeater.DataBind();
         }
-        [WebMethod]
-        public List<IGetUsers.UserDto> SearchUser<T>(string searchTerm)
+
+        protected void UsersRepeater_ItemDataBound(
+            object sender,
+            RepeaterItemEventArgs e)
         {
-            List<IGetUsers.UserDto> users = getUsers.GetUserList(searchTerm);
-            return users;
+            if (e.Item.ItemType != ListItemType.Item &&
+                e.Item.ItemType != ListItemType.AlternatingItem)
+                return;
+
+            var user = (User)e.Item.DataItem;
+
+            var component =
+                (Components.UserItem)e.Item.FindControl("UserItem");
+
+            if (component == null || user == null)
+                return;
+
+            component.SetUser(user);
         }
     }
 }

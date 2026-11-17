@@ -3,6 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using TaskMasterEntity.src.Core.Application.Interfaces;
 using TaskMasterEntity.src.Core.Domain.Entities;
+using TaskMasterEntity.src.Core.Infrastructure.Pesrcsstance.MapEntity;
 
 namespace TaskMasterEntity.src.Core.Infrastructure.Pesrcsstance
 {
@@ -44,15 +45,14 @@ namespace TaskMasterEntity.src.Core.Infrastructure.Pesrcsstance
         {
             return base.Set<TEntity>();
         }
-        public class UserConfiguration : EntityTypeConfiguration<User>
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            public UserConfiguration()
-            {
-                HasRequired(u => u.Person)
-                    .WithMany()
-                    .HasForeignKey(u => u.PersonId);
-                HasIndex(i => i.Username).IsUnique();
-            }
+            modelBuilder.Configurations.Add(new UserConfiguration());
+            base.OnModelCreating(modelBuilder);
+        }
+        public void Update<TEntity>(TEntity entity) where TEntity : class
+        {
+            base.Entry(entity).State = EntityState.Modified;
         }
     }
 }

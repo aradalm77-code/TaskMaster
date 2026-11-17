@@ -8,40 +8,31 @@ using static TaskMasterEntity.src.Core.Domain.Enums.UserRole;
 
 namespace TaskMasterEntity.src.Core.Application.Features.Users.Services.UserService
 {
-    public class CreateUser : ICreateUser
+    public class CreateUser(IUserDataAccess userDataAccess, IDb db) : ICreateUser
     {
-        private IUserDataAccess _userDataAccess;
-        private IDb _db;
-        public CreateUser(IUserDataAccess userDataAccess, IDb db)
-        {
-            _userDataAccess = userDataAccess;
-            _db = db;
-        }
         public User UserRegister(ICreateUser.Req req)
         {
-            PersonGender.Gender _gender = PersonGender.Gender.male;
-            UserLevel.Level level = UserLevel.Level.Beginner;
-            UserRole.Role _role = UserRole.Role.Intern;
 
-            (_role, _gender) = CastEnums(req.Role, req.Gender);
+            var (role, gender) = CastEnums(req.Role, req.Gender);
 
-            
-            if (UserExists(req.UserName)) 
+
+            if (UserExists(req.UserName))
                 throw new Exception("User with this username alreade exist");
+            Person person = new Person(req.FirstName, req.LastName, req.Age, gender);
 
-            User user = new User(req.FirstName, req.LastName, req.UserName, req.Password, _role, level, req.Age, _gender);
+            User user = new User(person, req.FirstName, req.LastName, req.UserName, req.Password, role, req.Age, gender);
 
-            _userDataAccess.AddUser(user);
-            _db.SaveChanges();
+            userDataAccess.AddUser(new IUserDataAccess.Request { User = user });
+            db.SaveChanges();
 
             return user;
         }
-        public bool UserExists(string username)
-        {
-            User user = _userDataAccess.GetUserByUsername(username);
-            if(user != null) return true;
-            return false;
-        }
+        // ---------- checking if username is taken ----------
+        public bool UserExists(string username) =>
+            userDataAccess.GetUserByUsername(
+                new IUserDataAccess.Request { Username = username }
+            ) != null;
+        // ---------- casting Role and Gender ----------
         public (UserRole.Role, PersonGender.Gender) CastEnums(string role, string gender)
         {
             PersonGender.Gender _gender = Gender.male;

@@ -2,6 +2,10 @@
 {
     public interface IDeleteUser
     {
-        void Delete(int id);
+        void Delete(Request request);
+        public class Request
+        {
+            public int Id { get; set; }
+        }
     }
 }

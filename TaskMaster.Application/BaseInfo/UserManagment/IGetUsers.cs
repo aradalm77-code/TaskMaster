@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using TaskMasterEntity.src.Core.Domain.Entities;
 using TaskMasterEntity.src.Core.Domain.Enums;
 
 namespace TaskMasterEntity.src.Core.Application.Interfaces
 {
     public interface IGetUsers
     {
-        List<UserDto> GetUserList(string searchTerm);
+        IQueryable<User> GetUserList();
         public class UserDto
         {
             public int Id { get; set; }

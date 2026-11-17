@@ -1,5 +1,7 @@
 ﻿using System;
 using TaskMasterEntity.src.Core.Application.Interfaces;
+using TaskMasterEntity.src.WebForms.Components;
+using System.Text.RegularExpressions;
 
 namespace TaskMasterEntity.src.WebForms
 {
@@ -35,7 +37,6 @@ namespace TaskMasterEntity.src.WebForms
         // -------------------------
         // Gender Selection
         // -------------------------
-
         protected void SelectMaleGender(object sender, EventArgs e)
         {
             _Gender = "male";
@@ -107,11 +108,36 @@ namespace TaskMasterEntity.src.WebForms
         private ICreateUser.Req CreateUserAccount()
         {
             int age;
+            // ---------- input validations ----------
+
+            if (string.IsNullOrWhiteSpace(txtFirstName.Text)) 
+                throw new Exception("Please enter your firstname");
+
+            if (string.IsNullOrWhiteSpace(txtLastName.Text)) 
+                throw new Exception("Please enter your firstname");
+
+            if (string.IsNullOrWhiteSpace(txtUsername.Text)) 
+                throw new Exception("Please enter your firstname");
+
+            if (
+                txtPassword.Text.Length < 8 ||
+                !Regex.IsMatch(txtPassword.Text, @"[A-Z]") ||
+                !Regex.IsMatch(txtPassword.Text, @"[a-z]") ||
+                !Regex.IsMatch(txtPassword.Text, @"[^a-zA-Z0-9]"))
+                    throw new Exception("Password must contain at least 8 characters," +
+                    " one uppercase letter, one lowercase letter, and one special character.");
+
+            if (txtPassword.Text != txtConfirmPassword.Text) 
+                throw new Exception("Please confirm your password correctly");
 
             if (!int.TryParse(tboxAge.Text, out age))
-            {
                 throw new ArgumentException("Age must be a valid number.");
-            }
+            
+            if (string.IsNullOrWhiteSpace(tboxAge.Text))
+                throw new Exception("Please enter your age");
+
+            if (Convert.ToInt32(tboxAge.Text) > 80 || Convert.ToInt32(tboxAge.Text) < 9)
+                throw new Exception("Your age must be beteen 9 and 80");
 
             if (string.IsNullOrWhiteSpace(_Gender))
             {
@@ -122,6 +148,11 @@ namespace TaskMasterEntity.src.WebForms
             {
                 throw new ArgumentException("Please select your role.");
             }
+
+
+
+
+            // ----------- making the request ----------
 
             ICreateUser.Req req = new ICreateUser.Req
             {
@@ -134,19 +165,25 @@ namespace TaskMasterEntity.src.WebForms
                 Role = _Role
             };
 
-            // Create a Lifetime Scope for this operation.
-
             return req;
-            
+
         }
 
         protected void btnRegister_Click(object sender, EventArgs e)
         {
+            try
+            {
+                var req = CreateUserAccount();
 
-            var req = CreateUserAccount();
-
-            createUser.UserRegister(req);
-            // Handle the registration result here.
+                createUser.UserRegister(req);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.ShowMessage(
+                    ex.Message,
+                    MessageControl.MessageType.Error
+                );
+            }
         }
     }
 }

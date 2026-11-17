@@ -826,3 +826,35 @@ h1 {
         transform: none;
     }
 }
+.search-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 44px;
+    padding: 0 20px;
+    color: #0a0c15;
+    background: linear-gradient(100deg, var(--cyan), #a89aff);
+    border: 0;
+    border-radius: 11px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 800;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: transform .2s, filter .2s;
+}
+
+    .search-button:hover {
+        transform: translateY(-2px);
+        filter: brightness(1.06);
+    }
+
+    .search-button:active {
+        transform: translateY(0) scale(.98);
+    }
+
+    .search-button:focus-visible {
+        outline: 2px solid var(--cyan);
+        outline-offset: 3px;
+    }

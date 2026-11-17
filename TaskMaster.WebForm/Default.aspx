@@ -1,5 +1,9 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="TaskMasterEntity.src.WebForms.Default" %>
 
+<%@ Register
+    Src="~/Components/MessageControl.ascx"
+    TagPrefix="uc"
+    TagName="Message" %>
 <!DOCTYPE html>
 <html lang="en">
 <head runat="server">
@@ -9,6 +13,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link href="./Css/Register.css" rel="stylesheet" />
+    <link href="./Css/Message.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -20,59 +25,9 @@
             runat="server"
             EnablePageMethods="true" />
 
-        <div class="form-message success" id="formMessage" role="status" aria-live="polite">
-
-            <span class="message-icon" aria-hidden="true">
-
-                <svg class="icon-success" viewBox="0 0 24 24" fill="none">
-                    <path d="M5 12.5L9.5 17L19 7"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round" />
-                </svg>
-
-                <svg class="icon-error" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 8V13"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round" />
-                    <circle cx="12" cy="16.5" r="1" fill="currentColor" />
-                    <circle cx="12" cy="12" r="9"
-                        stroke="currentColor"
-                        stroke-width="2" />
-                </svg>
-
-                <svg class="icon-warning" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 8V13"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round" />
-                    <circle cx="12" cy="16.5" r="1" fill="currentColor" />
-                    <path d="M10.3 4.8L2.8 18A2 2 0 0 0 4.5 21H19.5A2 2 0 0 0 21.2 18L13.7 4.8A2 2 0 0 0 10.3 4.8Z"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linejoin="round" />
-                </svg>
-
-            </span>
-
-            <span class="message-content">
-                <strong class="message-title">Success</strong>
-                <span class="message-text">
-                    Your account has been created successfully.
-                </span>
-            </span>
-
-            <button
-                type="button"
-                class="message-close"
-                aria-label="Dismiss message"
-                id="closeMessage">
-                &times;
-            </button>
-
-        </div>
+        <uc:Message
+            ID="MessageBox"
+            runat="server" />
 
         <main class="page">
 
@@ -152,8 +107,7 @@
 
                         </div>
 
-                        <small class="field-hint">
-                            Use letters, numbers, and underscores.
+                        <small class="field-hint">Use letters, numbers, and underscores.
                         </small>
 
                     </div>
@@ -205,8 +159,7 @@
                             max="120"
                             step="1" />
 
-                        <small class="field-hint">
-                            Enter your age in years.
+                        <small class="field-hint">Enter your age in years.
                         </small>
 
                     </div>
@@ -286,6 +239,7 @@
 
                                     <p class="role-description">
                                         How will you contribute to the team?
+                                   
                                     </p>
                                 </div>
 
@@ -370,6 +324,7 @@
             <div class="page-caption">
                 <span class="caption-dot"></span>
                 YOUR NEXT CHAPTER STARTS HERE
+           
             </div>
 
         </main>

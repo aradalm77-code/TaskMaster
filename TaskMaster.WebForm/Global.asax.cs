@@ -5,6 +5,7 @@ using TaskMasterEntity.src.Core.Application.Features.Users.Services.UserService;
 using TaskMasterEntity.src.Core.Infrastructure.Pesrcsstance;
 using TaskMasterEntity.src.Core.Infrastructure.Pesrcsstance.DataAccess;
 using Autofac.Integration.Web;
+using TaskMasterEntity.src.Core.Application.BaseInfo.UserManagment;
 
 namespace TaskMasterEntity.src.WebForms
 {
@@ -15,6 +16,18 @@ namespace TaskMasterEntity.src.WebForms
         protected void Application_Start(object sender, EventArgs e)
         {
             var builder = new ContainerBuilder();
+            builder.RegisterType<UpdateUser>()
+                   .As<IUpdateUser>()
+                   .InstancePerLifetimeScope();
+
+            builder.RegisterType<SearchPersons>()
+                   .As<ISearchPersons>()
+                   .InstancePerLifetimeScope();
+
+            builder.RegisterType<SearchUsers>()
+                   .As<ISearchUsers>()
+                   .InstancePerLifetimeScope();
+
             builder.RegisterType<DataBaseContext>()
                    .AsSelf()
                    .As<IDb>()

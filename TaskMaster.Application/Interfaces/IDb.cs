@@ -11,6 +11,7 @@ namespace TaskMasterEntity.src.Core.Application.Interfaces
         TEntity Add<TEntity>(TEntity entity) where TEntity : class, IEntity;
         void Remove<TEntity>(TEntity entity) where TEntity : class, IEntity;
         void DeleteById<TEntity>(int id) where TEntity : class, IEntity, new();
+        void Update<TEntity>(TEntity entity) where TEntity : class;
         int SaveChanges();
     }
 }

@@ -16,26 +16,15 @@ namespace TaskMasterEntity.src.Core.Domain.Entities
         public User()
         {
         }
-        public User(string firstName, string lastName, string username, string password, int score, int id,int personId, UserRole.Role role, UserLevel.Level level, int age, PersonGender.Gender gender)
+        public User(Person person, string firstName, string lastName, string username, string password, UserRole.Role role, int age, PersonGender.Gender gender )
         {
-            Person = new Person(firstName, lastName, age, gender);
+            Person = person;
             Username = username;
             Password = password;
-            Score = score;
-            Id = id;
+            Score = 0;
+            Id = 0;
             Role = role;
-            Level = level;
-            Person.Id = PersonId;
-        }
-        public User(string firstName, string lastName, string username, string password, UserRole.Role role, UserLevel.Level level, int age, PersonGender.Gender gender )
-        {
-            Person = new Person(firstName, lastName, age, gender);
-            Username = username;
-            Password = password;
-            Score = 0; // Default score
-            Id = 0; // Default ID
-            Role = role;
-            Level = level;
+            Level = UserLevel.Level.Beginner;
             Person.Id = 0;
         }
     }

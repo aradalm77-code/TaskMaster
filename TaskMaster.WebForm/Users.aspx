@@ -1,5 +1,9 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Users.aspx.cs" Inherits="TaskMasterEntity.src.WebForms.Users" %>
 
+<%@ Register
+    Src="~/Components/UserItem.ascx"
+    TagPrefix="uc"
+    TagName="UserItem" %>
 <!DOCTYPE html>
 <html lang="en">
 <head runat="server">
@@ -120,20 +124,30 @@
                     </header>
 
                     <div class="filters">
+
                         <div class="search-wrap">
                             <span class="search-icon">⌕</span>
-                            <input
-                                type="search"
-                                class="search-input"
-                                placeholder="Search by name or username..."
-                                aria-label="Search users" />
+
+                            <asp:TextBox
+                                ID="txtSearch"
+                                runat="server"
+                                CssClass="search-input"
+                                placeholder="Search by name or username..." />
                         </div>
+
+                        <asp:Button
+                            ID="btnSearch"
+                            runat="server"
+                            Text="Search"
+                            CssClass="search-button"
+                            OnClick="btnSearch_Click" />
 
                         <select class="role-filter" aria-label="Filter by role">
                             <option value="">All roles</option>
                             <option value="Intern">Interns</option>
                             <option value="Designer">Designers</option>
                         </select>
+
                     </div>
 
                     <div class="table-wrap">
@@ -149,110 +163,19 @@
                             </thead>
 
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="user-cell">
-                                            <div class="avatar">AM</div>
-                                            <div>
-                                                <div class="user-name">Alex Morgan</div>
-                                                <div class="user-username">@alex_morgan</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td><span class="role-badge">✳ Intern</span></td>
-                                    <td><span class="level">Beginner</span></td>
-                                    <td><span class="score">240 XP</span></td>
-                                    <td>
-                                        <div class="action-buttons">
-                                            <button type="button" class="action-button" aria-label="View user">↗</button>
-                                            <button type="button" class="action-button delete" aria-label="Delete user">⌫</button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                <asp:Repeater
+                                    ID="UsersRepeater"
+                                    runat="server">
 
-                                <tr>
-                                    <td>
-                                        <div class="user-cell">
-                                            <div class="avatar cyan">JD</div>
-                                            <div>
-                                                <div class="user-name">Jordan Davis</div>
-                                                <div class="user-username">@jordan_design</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td><span class="role-badge designer">✦ Designer</span></td>
-                                    <td><span class="level">Advanced</span></td>
-                                    <td><span class="score">890 XP</span></td>
-                                    <td>
-                                        <div class="action-buttons">
-                                            <button type="button" class="action-button" aria-label="View user">↗</button>
-                                            <button type="button" class="action-button delete" aria-label="Delete user">⌫</button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                    <ItemTemplate>
 
-                                <tr>
-                                    <td>
-                                        <div class="user-cell">
-                                            <div class="avatar orange">SC</div>
-                                            <div>
-                                                <div class="user-name">Sam Carter</div>
-                                                <div class="user-username">@sam_carter</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td><span class="role-badge">✳ Intern</span></td>
-                                    <td><span class="level">Mid-Level</span></td>
-                                    <td><span class="score">510 XP</span></td>
-                                    <td>
-                                        <div class="action-buttons">
-                                            <button type="button" class="action-button" aria-label="View user">↗</button>
-                                            <button type="button" class="action-button delete" aria-label="Delete user">⌫</button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        <uc:UserItem
+                                            ID="UserItem"
+                                            runat="server" />
 
-                                <tr>
-                                    <td>
-                                        <div class="user-cell">
-                                            <div class="avatar pink">RT</div>
-                                            <div>
-                                                <div class="user-name">Riley Taylor</div>
-                                                <div class="user-username">@riley_t</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td><span class="role-badge designer">✦ Designer</span></td>
-                                    <td><span class="level">Beginner</span></td>
-                                    <td><span class="score">120 XP</span></td>
-                                    <td>
-                                        <div class="action-buttons">
-                                            <button type="button" class="action-button" aria-label="View user">↗</button>
-                                            <button type="button" class="action-button delete" aria-label="Delete user">⌫</button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                    </ItemTemplate>
 
-                                <tr>
-                                    <td>
-                                        <div class="user-cell">
-                                            <div class="avatar">KW</div>
-                                            <div>
-                                                <div class="user-name">Kai Wilson</div>
-                                                <div class="user-username">@kai_wilson</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td><span class="role-badge">✳ Intern</span></td>
-                                    <td><span class="level">Mid-Level</span></td>
-                                    <td><span class="score">365 XP</span></td>
-                                    <td>
-                                        <div class="action-buttons">
-                                            <button type="button" class="action-button" aria-label="View user">↗</button>
-                                            <button type="button" class="action-button delete" aria-label="Delete user">⌫</button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                </asp:Repeater>
                             </tbody>
                         </table>
                     </div>

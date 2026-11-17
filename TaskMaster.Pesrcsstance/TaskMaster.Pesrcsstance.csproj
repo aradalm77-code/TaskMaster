@@ -11,7 +11,7 @@
     <AssemblyName>TaskMaster.Pesrcsstance</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <!-- C# Language Version -->
-    <LangVersion>10.0</LangVersion>
+    <LangVersion>12.0</LangVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
@@ -52,6 +52,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\SearchPersons.cs" />
+    <Compile Include="DataAccess\SearchUsers.cs" />
+    <Compile Include="MapEntity\UserConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataBaseContext\DataBaseContext.cs" />
     <Compile Include="DataAccess\UserDataAccess.cs" />
@@ -70,6 +73,7 @@
       <Name>TaskMaster.Domain</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

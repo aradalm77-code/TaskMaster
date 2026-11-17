@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using TaskMasterEntity.src.Core.Application.Interfaces;
+using TaskMasterEntity.src.Core.Domain.Entities;
 
 namespace TaskMasterEntity.src.Core.Application.Features.Users.Services.UserService
 {
@@ -11,19 +12,9 @@ namespace TaskMasterEntity.src.Core.Application.Features.Users.Services.UserServ
         {
             _userDataAccess = userDataAccess;
         }
-        public List<IGetUsers.UserDto> GetUserList(string searchTerm)
+        public IQueryable<User> GetUserList()
         {
-            return _userDataAccess.GetUsers(searchTerm).Select(i => new IGetUsers.UserDto
-            {
-                Id = i.Id,
-                FirstName = i.Person.FirstName,
-                LastName = i.Person.LastName,
-                Username = i.Username,
-                Role = i.Role,
-                Level = i.Level,
-                Score = i.Score
-            }).ToList();
-
+            return _userDataAccess.GetAllUsers();
 
         }
     }

@@ -2,16 +2,18 @@
 
 namespace TaskMasterEntity.src.Core.Application.Features.Users.Services.UserService
 {
-    public class DeleteUser : IDeleteUser
+    public class DeleteUser(IUserDataAccess userDataAccess, IDb db) : IDeleteUser
     {
-        private readonly IUserDataAccess _userDataAccess;
-        public DeleteUser(IUserDataAccess userDataAccess)
+        
+        public void Delete(IDeleteUser.Request request)
         {
-            _userDataAccess = userDataAccess;
-        }
-        public void Delete(int id)
-        {
-            _userDataAccess.RemoveUserById(id);
+
+            userDataAccess.RemoveUserById(new IUserDataAccess.Request
+            {
+                Id = request.Id
+            });
+
+            db.SaveChanges();
         }
     }
 }

@@ -12,7 +12,7 @@
     <AssemblyName>TaskMaster.Application</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <!-- C# Language Version -->
-    <LangVersion>10.0</LangVersion>
+    <LangVersion>12.0</LangVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
@@ -84,10 +84,14 @@
   <ItemGroup>
     <Compile Include="BaseInfo\UserManagment\CreateUser.cs" />
     <Compile Include="BaseInfo\UserManagment\DeleteUser.cs" />
+    <Compile Include="BaseInfo\UserManagment\UpdateUser.cs" />
     <Compile Include="BaseInfo\UserManagment\GetUsers.cs" />
     <Compile Include="BaseInfo\UserManagment\ICreateUser.cs" />
     <Compile Include="BaseInfo\UserManagment\IDeleteUser.cs" />
+    <Compile Include="BaseInfo\UserManagment\IUpdateUser.cs" />
     <Compile Include="BaseInfo\UserManagment\IGetUsers.cs" />
+    <Compile Include="Interfaces\ISearchPersons.cs" />
+    <Compile Include="Interfaces\ISearchUsers.cs" />
     <Compile Include="Interfaces\IUserDataAccess.cs" />
     <Compile Include="Interfaces\IDb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
