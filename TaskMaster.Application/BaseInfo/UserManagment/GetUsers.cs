@@ -12,7 +12,7 @@ namespace TaskMasterEntity.src.Core.Application.Features.Users.Services.UserServ
         {
             _userDataAccess = userDataAccess;
         }
-        public IQueryable<User> GetUserList()
+        public IQueryable<IUserDataAccess.ResponseDTO> GetUserList()
         {
             return _userDataAccess.GetAllUsers();
 

@@ -12,9 +12,9 @@ namespace TaskMasterEntity.src.Core.Application.BaseInfo.UserManagment
     {
         void IUpdateUser.EditUser(IUpdateUser.Request request)
         {
-            User user = userDataAccess.GetUserByUsername(new IUserDataAccess.Request { Username = request.Username });
+            IUserDataAccess.ResponseDTO item = userDataAccess.GetUserByUsername(new IUserDataAccess.Request { Username = request.Username });
 
-            if(user == null)
+            if(item == null)
             {
                 throw new Exception("User not found.");
             }
@@ -23,13 +23,17 @@ namespace TaskMasterEntity.src.Core.Application.BaseInfo.UserManagment
 
             if (string.IsNullOrEmpty(request.User.Password))
             {
-                request.User.Password = user.Password;
+                request.User.Password = item.User.Password;
             }
 
             userDataAccess.EditUser(new IUserDataAccess.Request
             {
                 Username = request.Username,
-                User = request.User
+                item = new IUserDataAccess.ResponseDTO
+                {
+                    User = request.User,
+                    Person = request.Person
+                }
             });
 
 

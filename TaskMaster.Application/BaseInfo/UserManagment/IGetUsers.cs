@@ -7,7 +7,7 @@ namespace TaskMasterEntity.src.Core.Application.Interfaces
 {
     public interface IGetUsers
     {
-        IQueryable<User> GetUserList();
+        IQueryable<IUserDataAccess.ResponseDTO> GetUserList();
         public class UserDto
         {
             public int Id { get; set; }

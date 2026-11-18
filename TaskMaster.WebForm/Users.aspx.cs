@@ -22,10 +22,10 @@ namespace TaskMasterEntity.src.WebForms
 
             if (!IsPostBack)
             {
-                List<User> users = getUsers.GetUserList().ToList();
+                List<IUserDataAccess.ResponseDTO> users = getUsers.GetUserList().ToList();
                 foreach (var user in users)
                 {
-                    user.Person = searchPersons.SearchPeople(new ISearchPersons.Request { Id = user.PersonId }).FirstOrDefault();
+                    user.Person = searchPersons.SearchPeople(new ISearchPersons.Request { Id = user.User.PersonId }).FirstOrDefault();
                 }
                 LoadUsers(users);
             }
@@ -36,14 +36,17 @@ namespace TaskMasterEntity.src.WebForms
             
             ISearchUsers.Request request = new ISearchUsers.Request
             {
-                SearchItem = searchTerm
+                SearchItem = searchTerm,
+                PersonRequest = new ISearchPersons.Request
+                {
+                    SearchItem = searchTerm
+                }
             };
-            List<User> users = searchUser.Search(request).ToList();
+            List<IUserDataAccess.ResponseDTO> users = searchUser.Search(request).ToList();
 
-            UsersRepeater.DataSource = users;
-            UsersRepeater.DataBind();
+            LoadUsers(users);
         }
-        private void LoadUsers(List<User> users)
+        private void LoadUsers(List<IUserDataAccess.ResponseDTO> users)
         {
             UsersRepeater.DataSource = users;
             UsersRepeater.DataBind();
@@ -57,7 +60,7 @@ namespace TaskMasterEntity.src.WebForms
                 e.Item.ItemType != ListItemType.AlternatingItem)
                 return;
 
-            var user = (User)e.Item.DataItem;
+            var user = (IUserDataAccess.ResponseDTO)e.Item.DataItem;
 
             var component =
                 (Components.UserItem)e.Item.FindControl("UserItem");
@@ -65,7 +68,7 @@ namespace TaskMasterEntity.src.WebForms
             if (component == null || user == null)
                 return;
 
-            component.SetUser(user);
+            component.SetUser(user.User, user.Person);
         }
     }
 }

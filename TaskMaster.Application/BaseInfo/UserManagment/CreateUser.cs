@@ -22,7 +22,7 @@ namespace TaskMasterEntity.src.Core.Application.Features.Users.Services.UserServ
 
             User user = new User(person, req.FirstName, req.LastName, req.UserName, req.Password, role, req.Age, gender);
 
-            userDataAccess.AddUser(new IUserDataAccess.Request { User = user });
+            userDataAccess.AddUser(new IUserDataAccess.Request { item = new IUserDataAccess.ResponseDTO { User = user, Person = person } });
             db.SaveChanges();
 
             return user;

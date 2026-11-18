@@ -13,7 +13,8 @@ namespace TaskMasterEntity.src.Core.Application.Interfaces
         {
             public string SearchItem { get; set; }
             public int Id { get; set; }
+            public ISearchPersons.Request PersonRequest { get; set; }
         }
-        IQueryable<User> Search(Request request = null);
+        IQueryable<IUserDataAccess.ResponseDTO> Search(Request request = null);
     }
 }

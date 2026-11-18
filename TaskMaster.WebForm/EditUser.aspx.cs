@@ -38,17 +38,17 @@ namespace TaskMasterEntity.src.WebForms
             if (!IsPostBack)
             {
                 string username = Request.QueryString["username"];
-                User user = userDataAccess.GetUserByUsername(username);
-                if (user != null)
+                IUserDataAccess.ResponseDTO item = userDataAccess.GetUserByUsername(new IUserDataAccess.Request { Username = username });
+                if (item != null)
                 {
-                    txtFirstName.Text = user.Person.FirstName;
-                    txtLastName.Text = user.Person.LastName;
-                    txtUsername.Text = user.Username;
-                    txtPassword.Text = user.Password;
-                    txtConfirmPassword.Text = user.Password;
-                    tboxAge.Text = user.Person.Age.ToString();
-                    _Gender = user.Person.Gender == PersonGender.Gender.male ? "male" : "female";
-                    _Role = user.Role == UserRole.Role.Intern ? "Intern" : "Designer";
+                    txtFirstName.Text = item.Person.FirstName;
+                    txtLastName.Text = item.Person.LastName;
+                    txtUsername.Text = item.User.Username;
+                    txtPassword.Text = item.User.Password;
+                    txtConfirmPassword.Text = item.User.Password;
+                    tboxAge.Text = item.Person.Age.ToString();
+                    _Gender = item.Person.Gender == PersonGender.Gender.male ? "male" : "female";
+                    _Role = item.User.Role == UserRole.Role.Intern ? "Intern" : "Designer";
                     UpdateGenderSelection();
                     UpdateRoleSelection();
                 }
@@ -145,14 +145,14 @@ namespace TaskMasterEntity.src.WebForms
                 Username = username,
                 Password = password,
                 Role = role == "Intern" ? UserRole.Role.Intern : UserRole.Role.Designer,
-                Person = person
             };
             string _username = Request.QueryString["username"];
 
             IUpdateUser.Request request = new IUpdateUser.Request
             {
                 User = user,
-                Username = _username
+                Username = _username,
+                Person = person
             };
 
             editUser.EditUser(request);

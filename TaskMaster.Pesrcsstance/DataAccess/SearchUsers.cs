@@ -10,24 +10,54 @@ using TaskMasterEntity.src.Core.Domain.Entities;
 
 namespace TaskMasterEntity.src.Core.Infrastructure.Pesrcsstance.DataAccess
 {
-    public class SearchUsers(IDb context) : ISearchUsers
+
+    public class SearchUsers(IDb context, ISearchPersons searchPersons, ISearchUsers searchUsers) : ISearchUsers
     {
-        public IQueryable<User> Search(ISearchUsers.Request request = null)
+        public IQueryable<IUserDataAccess.ResponseDTO> Search(
+            ISearchUsers.Request request = null)
         {
-            if (string.IsNullOrWhiteSpace(request?.SearchItem))
+            var items = context.Query<User>();
+
+            return Execute(request, items);
+        }
+
+        private IQueryable<IUserDataAccess.ResponseDTO> Execute(
+            ISearchUsers.Request request,
+            IQueryable<User> items)
+        {
+
+
+            IQueryable<Person> people = null;
+            var result = searchUsers.Search(request);
+
+            // ---------- cheking if user searched for something ----------
+
+            if (!string.IsNullOrWhiteSpace(request?.SearchItem))
             {
-                var users = context.Query<User>().Include(u => u.Person);
-                return users;
+                string searchTerm = request.SearchItem.Replace(" ", "");
+
+                result = result.Where(e =>
+                    e.User.Username.Contains(searchTerm));
             }
-            else
+
+            // ---------- cheking if person is requiered ----------
+
+            if (request?.PersonRequest != null)
             {
-                var users = context.Query<User>().Include(u => u.Person).Where(
-                e => e.Username.Contains(request.SearchItem.Replace(" ", ""))
-                || e.Person.FirstName.Contains(request.SearchItem.Replace(" ", ""))
-                || e.Person.LastName.Contains(request.SearchItem.Replace(" ", ""))
-                ).Distinct();
-                return users;
+                people = searchPersons.SearchPeople(request.PersonRequest);
+                result =
+                from user in items
+                join person in people
+                on user.PersonId equals person.Id
+                select new IUserDataAccess.ResponseDTO
+                {
+                    User = user,
+                    Person = person
+                };
             }
+
+            return result;
         }
     }
 }
+

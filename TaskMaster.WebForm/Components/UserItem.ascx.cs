@@ -31,21 +31,21 @@ namespace TaskMasterEntity.src.WebForms.Components
         }
         protected void btnDelete_ServerClick(object sender, EventArgs e)
         {
-           DeleteUser.Delete(int.Parse(UserId));
+           DeleteUser.Delete(new IDeleteUser.Request { Id = int.Parse(UserId) });
 
            this.Parent.Controls.Remove(this);
         }
  
-        public void SetUser(User user)
+        public void SetUser(User user, Person person)
         {
             if (user == null)
                 return;
             User = user;
             Username = user.Username;
             userRow.Attributes["data-user-id"] = user.Id.ToString();
-            string fullName = $"{user.Person.FirstName} {user.Person.LastName}";
+            string fullName = $"{person.FirstName} {person.LastName}";
             litName.Text = Server.HtmlEncode(fullName);
-            litInitials.Text = Server.HtmlEncode($"{user.Person.FirstName[0].ToString().ToUpper()}{user.Person.LastName[0].ToString().ToUpper()}");
+            litInitials.Text = Server.HtmlEncode($"{person.FirstName[0].ToString().ToUpper()}{person.LastName[0].ToString().ToUpper()}");
             litUsername.Text = Server.HtmlEncode(user.Username);
             litRole.Text = Server.HtmlEncode(user.Role.ToString());
             litLevel.Text = Server.HtmlEncode(user.Level.ToString());

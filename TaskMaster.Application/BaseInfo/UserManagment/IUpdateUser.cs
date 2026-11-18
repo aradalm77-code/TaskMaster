@@ -12,6 +12,7 @@ namespace TaskMasterEntity.src.Core.Application.BaseInfo.UserManagment
         void EditUser(Request request);
         public class Request
         {
+            public Person Person { get; set; }
             public User User { get; set; }
             public string Username { get; set; }
         }
