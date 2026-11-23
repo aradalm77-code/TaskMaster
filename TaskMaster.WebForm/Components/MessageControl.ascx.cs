@@ -1,9 +1,8 @@
 ﻿
 using System;
-using System.Web;
 using System.Web.UI;
 
-namespace TaskMasterEntity.src.WebForms.Components
+namespace TaskMaster.WebForm.Components
 {
     public partial class MessageControl : UserControl
     {

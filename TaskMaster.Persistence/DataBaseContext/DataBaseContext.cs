@@ -1,11 +1,11 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
-using TaskMasterEntity.src.Core.Application.Interfaces;
-using TaskMasterEntity.src.Core.Domain.Entities;
-using TaskMasterEntity.src.Core.Infrastructure.Pesrcsstance.MapEntity;
+using TaskMaster.Application.Interfaces;
+using TaskMaster.Domain.Entities;
+using TaskMaster.Persistence.MapEntity;
 
-namespace TaskMasterEntity.src.Core.Infrastructure.Pesrcsstance
+namespace TaskMaster.Persistence.DataBaseContext
 {
     public class DataBaseContext : DbContext, IDb
     {

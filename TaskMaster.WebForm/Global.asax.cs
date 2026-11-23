@@ -1,13 +1,13 @@
 ﻿using Autofac;
-using System;
-using TaskMasterEntity.src.Core.Application.Interfaces;
-using TaskMasterEntity.src.Core.Application.Features.Users.Services.UserService;
-using TaskMasterEntity.src.Core.Infrastructure.Pesrcsstance;
-using TaskMasterEntity.src.Core.Infrastructure.Pesrcsstance.DataAccess;
 using Autofac.Integration.Web;
-using TaskMasterEntity.src.Core.Application.BaseInfo.UserManagment;
+using System;
+using TaskMaster.Application.BaseInfo.Persons;
+using TaskMaster.Application.BaseInfo.Users;
+using TaskMaster.Application.Interfaces;
+using TaskMaster.Persistence.DataAccess;
+using TaskMaster.Persistence.DataBaseContext;
 
-namespace TaskMasterEntity.src.WebForms
+namespace TaskMaster.WebForm
 {
     public class Global : System.Web.HttpApplication, IContainerProviderAccessor
     {

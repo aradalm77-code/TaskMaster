@@ -1,7 +1,7 @@
-﻿using TaskMasterEntity.src.Core.Domain.Enums;
-using TaskMasterEntity.src.Core.Domain.Interfaces;
+﻿using TaskMaster.Domain.Enums;
+using TaskMaster.Domain.Interfaces;
 
-namespace TaskMasterEntity.src.Core.Domain.Entities
+namespace TaskMaster.Domain.Entities
 {
     public class User : IEntity
     {

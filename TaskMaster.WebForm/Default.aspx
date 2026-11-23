@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="TaskMasterEntity.src.WebForms.Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="TaskMaster.WebForm.Default" %>
 
 <%@ Register
     Src="~/Components/MessageControl.ascx"

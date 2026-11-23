@@ -8,7 +8,7 @@
     <ProjectGuid>{58D0B400-135B-471A-AB7E-64711D4C4D3E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TaskMasterEntity.src.Core.Application</RootNamespace>
+    <RootNamespace>TaskMaster.Application</RootNamespace>
     <AssemblyName>TaskMaster.Application</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <!-- C# Language Version -->
@@ -82,17 +82,18 @@
   </ItemGroup>
   <!-- Source Files -->
   <ItemGroup>
-    <Compile Include="BaseInfo\UserManagment\CreateUser.cs" />
-    <Compile Include="BaseInfo\UserManagment\DeleteUser.cs" />
-    <Compile Include="BaseInfo\UserManagment\UpdateUser.cs" />
-    <Compile Include="BaseInfo\UserManagment\GetUsers.cs" />
-    <Compile Include="BaseInfo\UserManagment\ICreateUser.cs" />
-    <Compile Include="BaseInfo\UserManagment\IDeleteUser.cs" />
-    <Compile Include="BaseInfo\UserManagment\IUpdateUser.cs" />
-    <Compile Include="BaseInfo\UserManagment\IGetUsers.cs" />
-    <Compile Include="Interfaces\ISearchPersons.cs" />
-    <Compile Include="Interfaces\ISearchUsers.cs" />
-    <Compile Include="Interfaces\IUserDataAccess.cs" />
+    <Compile Include="BaseInfo\Persons\IPersonDataAccess.cs" />
+    <Compile Include="BaseInfo\Users\CreateUser.cs" />
+    <Compile Include="BaseInfo\Users\DeleteUser.cs" />
+    <Compile Include="BaseInfo\Users\UpdateUser.cs" />
+    <Compile Include="BaseInfo\Users\GetUsers.cs" />
+    <Compile Include="BaseInfo\Users\ICreateUser.cs" />
+    <Compile Include="BaseInfo\Users\IDeleteUser.cs" />
+    <Compile Include="BaseInfo\Users\IUpdateUser.cs" />
+    <Compile Include="BaseInfo\Users\IGetUsers.cs" />
+    <Compile Include="BaseInfo\Persons\ISearchPersons.cs" />
+    <Compile Include="BaseInfo\Users\ISearchUsers.cs" />
+    <Compile Include="BaseInfo\Users\IUserDataAccess.cs" />
     <Compile Include="Interfaces\IDb.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

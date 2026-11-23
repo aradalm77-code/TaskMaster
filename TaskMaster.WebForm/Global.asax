@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="TaskMasterEntity.src.WebForms.Global" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="TaskMaster.WebForm.Global" Language="C#" %>

@@ -1,20 +1,20 @@
-﻿using TaskMasterEntity.src.Core.Domain.Enums;
-using TaskMasterEntity.src.Core.Domain.Interfaces;
+﻿using TaskMaster.Domain.Enums;
+using TaskMaster.Domain.Interfaces;
 
-namespace TaskMasterEntity.src.Core.Domain.Entities
+namespace TaskMaster.Domain.Entities
 {
     public class Person : IEntity
     {
+        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Age { get; set; }
         public PersonGender.Gender Gender { get; set; }
-        public int Id { get; set; }
 
-        public Person(string firstName, string lastNAme, int age, PersonGender.Gender gender)
+        public Person(string firstName, string lastName, int age, PersonGender.Gender gender)
         {
             FirstName = firstName;
-            LastName = lastNAme;
+            LastName = lastName;
             Age = age;
             Gender = gender;
         }

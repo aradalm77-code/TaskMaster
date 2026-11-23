@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Users.aspx.cs" Inherits="TaskMasterEntity.src.WebForms.Users" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Users.aspx.cs" Inherits="TaskMaster.WebForm.Users" %>
 
 <%@ Register
     Src="~/Components/UserItem.ascx"

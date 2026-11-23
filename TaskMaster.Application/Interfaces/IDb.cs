@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using TaskMasterEntity.src.Core.Domain.Interfaces;
+using TaskMaster.Domain.Interfaces;
 
-namespace TaskMasterEntity.src.Core.Application.Interfaces
+namespace TaskMaster.Application.Interfaces
 {
     public interface IDb : IDisposable
     {
