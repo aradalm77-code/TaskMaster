@@ -1,10 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
-using TaskMasterEntity.src.Core.Application.Features.Users.Services.UserService;
-using TaskMasterEntity.src.Core.Application.Interfaces;
-using TaskMasterEntity.src.Core.Domain.Entities;
-using TaskMasterEntity.src.Core.Domain.Enums;
+using TaskMaster.Application.BaseInfo.Users;
+using TaskMaster.Application.Interfaces;
+using TaskMaster.Domain.Entities;
+using TaskMaster.Domain.Enums;
 
 namespace TaskMaster.Application.Tests
 {

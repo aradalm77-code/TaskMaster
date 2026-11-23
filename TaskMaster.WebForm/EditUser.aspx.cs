@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using TaskMasterEntity.src.Core.Application.BaseInfo.UserManagment;
-using TaskMasterEntity.src.Core.Application.Interfaces;
-using TaskMasterEntity.src.Core.Domain.Entities;
-using TaskMasterEntity.src.Core.Domain.Enums;
-using static TaskMasterEntity.src.Core.Domain.Enums.PersonGender;
-using static TaskMasterEntity.src.Core.Domain.Enums.UserRole;
+using TaskMaster.Application.BaseInfo.Persons;
+using TaskMaster.Application.BaseInfo.Users;
+using TaskMaster.Domain.Entities;
+using TaskMaster.Domain.Enums;
 
-namespace TaskMasterEntity.src.WebForms
+namespace TaskMaster.WebForm
 {
     public partial class EditUser : System.Web.UI.Page
     {
@@ -37,18 +31,26 @@ namespace TaskMasterEntity.src.WebForms
         {
             if (!IsPostBack)
             {
-                string username = Request.QueryString["username"];
-                IUserDataAccess.ResponseDTO item = userDataAccess.GetUserByUsername(new IUserDataAccess.Request { Username = username });
+                string id = Request.QueryString["id"];
+                var item = searchUsers.Respond(new ISearchUsers.Request { Id = Convert.ToInt32(id) }).Select(i => new
+                {
+                    i.Person.FirstName,
+                    i.Person.LastName,
+                    i.Username,
+                    i.Person.Age,
+                    i.Person.Gender,
+                    i.Role
+                }
+                ).SingleOrDefault();
+
                 if (item != null)
                 {
-                    txtFirstName.Text = item.Person.FirstName;
-                    txtLastName.Text = item.Person.LastName;
-                    txtUsername.Text = item.User.Username;
-                    txtPassword.Text = item.User.Password;
-                    txtConfirmPassword.Text = item.User.Password;
-                    tboxAge.Text = item.Person.Age.ToString();
-                    _Gender = item.Person.Gender == PersonGender.Gender.male ? "male" : "female";
-                    _Role = item.User.Role == UserRole.Role.Intern ? "Intern" : "Designer";
+                    txtFirstName.Text = item.FirstName;
+                    txtLastName.Text = item.LastName;
+                    txtUsername.Text = item.Username;
+                    tboxAge.Text = item.Age.ToString();
+                    _Gender = item.Gender == PersonGender.Gender.male ? "male" : "female";
+                    _Role = item.Role == UserRole.Role.Intern ? "Intern" : "Designer";
                     UpdateGenderSelection();
                     UpdateRoleSelection();
                 }
@@ -145,14 +147,14 @@ namespace TaskMasterEntity.src.WebForms
                 Username = username,
                 Password = password,
                 Role = role == "Intern" ? UserRole.Role.Intern : UserRole.Role.Designer,
+                Person = person
             };
-            string _username = Request.QueryString["username"];
+            string id = Request.QueryString["id"];
 
             IUpdateUser.Request request = new IUpdateUser.Request
             {
                 User = user,
-                Username = _username,
-                Person = person
+                Id = Convert.ToInt32(id)
             };
 
             editUser.EditUser(request);

@@ -1,12 +1,9 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Web.UI;
-using TaskMasterEntity.src.Core.Application.Interfaces;
-using TaskMasterEntity.src.Core.Domain.Entities;
-using TaskMasterEntity.src.Core.Domain.Enums;
-using static TaskMasterEntity.src.Core.Application.Interfaces.IGetUsers;
+using TaskMaster.Application.BaseInfo.Users;
+using TaskMaster.Domain.Entities;
 
-namespace TaskMasterEntity.src.WebForms.Components
+namespace TaskMaster.WebForm.Components
 {
     public partial class UserItem : UserControl
     {
@@ -25,17 +22,24 @@ namespace TaskMasterEntity.src.WebForms.Components
                 return userRow.Attributes["data-user-id"];
             }
         }
+        public string PersonId
+        {
+            get
+            {
+                return userRow.Attributes["data-person-id"];
+            }
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
         }
         protected void btnDelete_ServerClick(object sender, EventArgs e)
         {
-           DeleteUser.Delete(new IDeleteUser.Request { Id = int.Parse(UserId) });
+            DeleteUser.Delete(new IDeleteUser.Request { UserId = int.Parse(UserId), PersonId = int.Parse(PersonId) });
 
-           this.Parent.Controls.Remove(this);
+            this.Parent.Controls.Remove(this);
         }
- 
+
         public void SetUser(User user, Person person)
         {
             if (user == null)
@@ -43,6 +47,7 @@ namespace TaskMasterEntity.src.WebForms.Components
             User = user;
             Username = user.Username;
             userRow.Attributes["data-user-id"] = user.Id.ToString();
+            userRow.Attributes["data-person-id"] = person.Id.ToString();
             string fullName = $"{person.FirstName} {person.LastName}";
             litName.Text = Server.HtmlEncode(fullName);
             litInitials.Text = Server.HtmlEncode($"{person.FirstName[0].ToString().ToUpper()}{person.LastName[0].ToString().ToUpper()}");
@@ -53,7 +58,7 @@ namespace TaskMasterEntity.src.WebForms.Components
         }
         public void EditUser(object sender, EventArgs e)
         {
-            Response.Redirect($"EditUser.aspx?username={Username}");
+            Response.Redirect($"EditUser.aspx?id={UserId}");
         }
     }
 }

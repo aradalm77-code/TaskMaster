@@ -7,8 +7,8 @@
     <ProjectGuid>{7051A378-D7A8-49AF-A979-3A1806EFE158}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TaskMasterEntity.src.Core.Infrastructure.Pesrcsstance</RootNamespace>
-    <AssemblyName>TaskMaster.Pesrcsstance</AssemblyName>
+    <RootNamespace>TaskMaster.Persistence</RootNamespace>
+    <AssemblyName>TaskMaster.Persistence</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <!-- C# Language Version -->
     <LangVersion>12.0</LangVersion>
@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\PersonDataAccess.cs" />
     <Compile Include="DataAccess\SearchPersons.cs" />
     <Compile Include="DataAccess\SearchUsers.cs" />
     <Compile Include="MapEntity\UserConfiguration.cs" />

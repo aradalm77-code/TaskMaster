@@ -1,4 +1,4 @@
-﻿namespace TaskMasterEntity.src.Core.Domain.Interfaces
+﻿namespace TaskMaster.Domain.Interfaces
 {
     public interface IEntity
     {

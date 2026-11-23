@@ -1,4 +1,4 @@
-﻿namespace TaskMasterEntity.src.Core.Domain.Enums
+﻿namespace TaskMaster.Domain.Enums
 {
     public class UserRole
     {

@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using TaskMasterEntity.src.Core.Domain.Entities;
-using TaskMasterEntity.src.Core.Domain.Enums;
+﻿using System.Linq;
+using TaskMaster.Domain.Enums;
 
-namespace TaskMasterEntity.src.Core.Application.Interfaces
+namespace TaskMaster.Application.BaseInfo.Users
 {
     public interface IGetUsers
     {
-        IQueryable<IUserDataAccess.ResponseDTO> GetUserList();
+        IQueryable<TaskMaster.Domain.Entities.User> GetUserList();
         public class UserDto
         {
             public int Id { get; set; }

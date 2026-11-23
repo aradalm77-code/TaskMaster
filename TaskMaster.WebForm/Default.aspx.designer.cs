@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TaskMasterEntity.src.WebForms
+namespace TaskMaster.WebForm
 {
 
 
@@ -184,6 +184,6 @@ namespace TaskMasterEntity.src.WebForms
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnRegister;
-        protected global::TaskMasterEntity.src.WebForms.Components.MessageControl MessageBox;
+        protected global::TaskMaster.WebForm.Components.MessageControl MessageBox;
     }
 }

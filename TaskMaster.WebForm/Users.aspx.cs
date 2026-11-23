@@ -1,60 +1,51 @@
 ﻿using System;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using TaskMasterEntity.src.Core.Application.Interfaces;
-using Autofac;
-using System.Collections.Generic;
 using System.Linq;
-using TaskMasterEntity.src.Core.Application.BaseInfo.UserManagment;
-using TaskMasterEntity.src.Core.Domain.Entities;
+using System.Web.UI.WebControls;
+using TaskMaster.Application.BaseInfo.Persons;
+using TaskMaster.Application.BaseInfo.Users;
 
-namespace TaskMasterEntity.src.WebForms
+namespace TaskMaster.WebForm
 {
     public partial class Users : System.Web.UI.Page
     {
         public ISearchUsers searchUser { get; set; }
-        public IGetUsers getUsers { get; set; }
         public ISearchPersons searchPersons { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             UsersRepeater.ItemDataBound += UsersRepeater_ItemDataBound;
 
-            if (!IsPostBack)
-            {
-                List<IUserDataAccess.ResponseDTO> users = getUsers.GetUserList().ToList();
-                foreach (var user in users)
-                {
-                    user.Person = searchPersons.SearchPeople(new ISearchPersons.Request { Id = user.User.PersonId }).FirstOrDefault();
-                }
-                LoadUsers(users);
-            }
+            if (IsPostBack)
+                return;
+
+            LoadUsers();
+
         }
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            string searchTerm = txtSearch.Text;
-            
-            ISearchUsers.Request request = new ISearchUsers.Request
+            LoadUsers();
+        }
+        private void LoadUsers()
+        {
+
+            var items = searchUser.Respond(new ISearchUsers.Request
             {
-                SearchItem = searchTerm,
+                SearchItem = txtSearch.Text,
                 PersonRequest = new ISearchPersons.Request
                 {
-                    SearchItem = searchTerm
+                    SearchItem = txtSearch.Text
                 }
-            };
-            List<IUserDataAccess.ResponseDTO> users = searchUser.Search(request).ToList();
+            }).Select(i => new IUserDataAccess.ResponseDTO
+            {
+                User = i,
+                Person = i.Person
+            }).ToList();
 
-            LoadUsers(users);
-        }
-        private void LoadUsers(List<IUserDataAccess.ResponseDTO> users)
-        {
-            UsersRepeater.DataSource = users;
+            UsersRepeater.DataSource = items;
             UsersRepeater.DataBind();
         }
 
-        protected void UsersRepeater_ItemDataBound(
-            object sender,
-            RepeaterItemEventArgs e)
+        protected void UsersRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType != ListItemType.Item &&
                 e.Item.ItemType != ListItemType.AlternatingItem)
@@ -62,8 +53,7 @@ namespace TaskMasterEntity.src.WebForms
 
             var user = (IUserDataAccess.ResponseDTO)e.Item.DataItem;
 
-            var component =
-                (Components.UserItem)e.Item.FindControl("UserItem");
+            var component = (Components.UserItem)e.Item.FindControl("UserItem");
 
             if (component == null || user == null)
                 return;

@@ -2,11 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using TaskMasterEntity.src.Core.Application.Interfaces;
-using TaskMasterEntity.src.Core.Domain.Entities;
-using TaskMasterEntity.src.Core.Domain.Enums;
-using TaskMasterEntity.src.Core.Infrastructure.Pesrcsstance;
-using TaskMasterEntity.src.Core.Infrastructure.Pesrcsstance.DataAccess;
+using TaskMaster.Application.Interfaces;
+using TaskMaster.Domain.Entities;
+using TaskMaster.Domain.Enums;
+using TaskMaster.Persistence.DataBaseContext;
+using TaskMaster.Persistence.DataAccess;
 using System.Data.Entity;
 using System.Linq;
 

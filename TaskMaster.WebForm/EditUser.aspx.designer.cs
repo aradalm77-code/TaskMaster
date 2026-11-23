@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TaskMasterEntity.src.WebForms
+namespace TaskMaster.WebForm
 {
 
 

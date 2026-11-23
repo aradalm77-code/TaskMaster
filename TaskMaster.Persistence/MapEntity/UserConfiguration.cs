@@ -6,9 +6,9 @@ using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TaskMasterEntity.src.Core.Domain.Entities;
+using TaskMaster.Domain.Entities;
 
-namespace TaskMasterEntity.src.Core.Infrastructure.Pesrcsstance.MapEntity
+namespace TaskMaster.Persistence.MapEntity
 {
     internal class UserConfiguration : EntityTypeConfiguration<User>
     {

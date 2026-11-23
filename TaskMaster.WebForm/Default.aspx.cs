@@ -1,9 +1,9 @@
 ﻿using System;
-using TaskMasterEntity.src.Core.Application.Interfaces;
-using TaskMasterEntity.src.WebForms.Components;
 using System.Text.RegularExpressions;
+using TaskMaster.Application.BaseInfo.Users;
+using TaskMaster.WebForm.Components;
 
-namespace TaskMasterEntity.src.WebForms
+namespace TaskMaster.WebForm
 {
     public partial class Default : System.Web.UI.Page
     {
@@ -110,34 +110,34 @@ namespace TaskMasterEntity.src.WebForms
             int age;
             // ---------- input validations ----------
 
-            if (string.IsNullOrWhiteSpace(txtFirstName.Text)) 
-                throw new Exception("Please enter your firstname");
+            if (string.IsNullOrWhiteSpace(txtFirstName.Text))
+                throw new Exception("Please enter your first name");
 
-            if (string.IsNullOrWhiteSpace(txtLastName.Text)) 
-                throw new Exception("Please enter your firstname");
+            if (string.IsNullOrWhiteSpace(txtLastName.Text))
+                throw new Exception("Please enter your first name");
 
-            if (string.IsNullOrWhiteSpace(txtUsername.Text)) 
-                throw new Exception("Please enter your firstname");
+            if (string.IsNullOrWhiteSpace(txtUsername.Text))
+                throw new Exception("Please enter your first name");
 
             if (
                 txtPassword.Text.Length < 8 ||
                 !Regex.IsMatch(txtPassword.Text, @"[A-Z]") ||
                 !Regex.IsMatch(txtPassword.Text, @"[a-z]") ||
                 !Regex.IsMatch(txtPassword.Text, @"[^a-zA-Z0-9]"))
-                    throw new Exception("Password must contain at least 8 characters," +
-                    " one uppercase letter, one lowercase letter, and one special character.");
+                throw new Exception("Password must contain at least 8 characters," +
+                " one uppercase letter, one lowercase letter, and one special character.");
 
-            if (txtPassword.Text != txtConfirmPassword.Text) 
+            if (txtPassword.Text != txtConfirmPassword.Text)
                 throw new Exception("Please confirm your password correctly");
 
             if (!int.TryParse(tboxAge.Text, out age))
                 throw new ArgumentException("Age must be a valid number.");
-            
+
             if (string.IsNullOrWhiteSpace(tboxAge.Text))
                 throw new Exception("Please enter your age");
 
             if (Convert.ToInt32(tboxAge.Text) > 80 || Convert.ToInt32(tboxAge.Text) < 9)
-                throw new Exception("Your age must be beteen 9 and 80");
+                throw new Exception("Your age must be between 9 and 80");
 
             if (string.IsNullOrWhiteSpace(_Gender))
             {

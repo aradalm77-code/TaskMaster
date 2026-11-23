@@ -1,12 +1,13 @@
-﻿using TaskMasterEntity.src.Core.Domain.Entities;
+﻿using TaskMaster.Domain.Entities;
 
-namespace TaskMasterEntity.src.Core.Application.Interfaces
+namespace TaskMaster.Application.BaseInfo.Users
 {
     public interface ICreateUser
     {
         User UserRegister(Req req);
         class Req
         {
+            public int Id { get; set; }
             public string FirstName { get; set; }
             public string LastName { get; set; }
             public string UserName { get; set; }

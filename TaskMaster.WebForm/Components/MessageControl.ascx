@@ -1,7 +1,7 @@
 ﻿
 <%@ Control Language="C#" AutoEventWireup="true"
     CodeBehind="MessageControl.ascx.cs"
-    Inherits="TaskMasterEntity.src.WebForms.Components.MessageControl" %>
+    Inherits="TaskMaster.WebForm.Components.MessageControl" %>
 
 <div id="formMessage"
      runat="server"
