@@ -25,7 +25,8 @@ namespace TaskMaster.Application.BaseInfo.Users
 
             return user;
         }
-        public bool UserExists(string username)
+
+        private bool UserExists(string username)
         {
             var response= userDataAccess.GetByUsername(new IUserDataAccess.Request { Username = username });
             if (response != null)
@@ -34,7 +35,7 @@ namespace TaskMaster.Application.BaseInfo.Users
                 return false;
         }
 
-        public (UserRole.Role, Gender) CastEnums(string role, string gender)
+        private (UserRole.Role, Gender) CastEnums(string role, string gender)
         {
             PersonGender.Gender _gender = Gender.male;
             UserRole.Role _role = Role.Designer;
