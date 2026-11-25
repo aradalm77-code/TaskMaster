@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using System.Web.UI;
 using TaskMaster.Application.BaseInfo.Users;
+using TaskMaster.Domain.Exceptions;
 using TaskMaster.WebForm.Components;
 
 namespace TaskMaster.WebForm
@@ -104,80 +106,30 @@ namespace TaskMaster.WebForm
         // -------------------------
         // User Registration
         // -------------------------
-
-        private ICreateUser.Req CreateUserAccount()
-        {
-            int age;
-            // ---------- input validations ----------
-
-            if (string.IsNullOrWhiteSpace(txtFirstName.Text))
-                throw new Exception("Please enter your first name");
-
-            if (string.IsNullOrWhiteSpace(txtLastName.Text))
-                throw new Exception("Please enter your first name");
-
-            if (string.IsNullOrWhiteSpace(txtUsername.Text))
-                throw new Exception("Please enter your first name");
-
-            if (
-                txtPassword.Text.Length < 8 ||
-                !Regex.IsMatch(txtPassword.Text, @"[A-Z]") ||
-                !Regex.IsMatch(txtPassword.Text, @"[a-z]") ||
-                !Regex.IsMatch(txtPassword.Text, @"[^a-zA-Z0-9]"))
-                throw new Exception("Password must contain at least 8 characters," +
-                " one uppercase letter, one lowercase letter, and one special character.");
-
-            if (txtPassword.Text != txtConfirmPassword.Text)
-                throw new Exception("Please confirm your password correctly");
-
-            if (!int.TryParse(tboxAge.Text, out age))
-                throw new ArgumentException("Age must be a valid number.");
-
-            if (string.IsNullOrWhiteSpace(tboxAge.Text))
-                throw new Exception("Please enter your age");
-
-            if (Convert.ToInt32(tboxAge.Text) > 80 || Convert.ToInt32(tboxAge.Text) < 9)
-                throw new Exception("Your age must be between 9 and 80");
-
-            if (string.IsNullOrWhiteSpace(_Gender))
-            {
-                throw new ArgumentException("Please select your gender.");
-            }
-
-            if (string.IsNullOrWhiteSpace(_Role))
-            {
-                throw new ArgumentException("Please select your role.");
-            }
-
-
-
-
-            // ----------- making the request ----------
-
-            ICreateUser.Req req = new ICreateUser.Req
-            {
-                FirstName = txtFirstName.Text.Trim(),
-                LastName = txtLastName.Text.Trim(),
-                UserName = txtUsername.Text.Trim(),
-                Password = txtPassword.Text,
-                Age = age,
-                Gender = _Gender,
-                Role = _Role
-            };
-
-            return req;
-
-        }
-
         protected void btnRegister_Click(object sender, EventArgs e)
         {
             try
             {
-                var req = CreateUserAccount();
+                if (txtPassword.Text != txtConfirmPassword.Text)
+                    throw new AppException("Please confirm your password correctly");
+
+                if (!int.TryParse(tboxAge.Text, out int age))
+                    throw new AppException("Age must be a valid number.");
+
+                ICreateUser.Req req = new ICreateUser.Req
+                {
+                    FirstName = txtFirstName.Text.Trim(),
+                    LastName = txtLastName.Text.Trim(),
+                    UserName = txtUsername.Text.Trim(),
+                    Password = txtPassword.Text,
+                    Age = age,
+                    Gender = _Gender,
+                    Role = _Role
+                };
 
                 createUser.UserRegister(req);
             }
-            catch (Exception ex)
+            catch (AppException ex)
             {
                 MessageBox.ShowMessage(
                     ex.Message,

@@ -2,7 +2,7 @@
     AutoEventWireup="true"
     CodeBehind="UserItem.ascx.cs"
     Inherits="TaskMaster.WebForm.Components.UserItem" %>
-<tr data-user-id="userRow" data-person-id="userRow" runat="server">
+<tr id="userRow" data-user-id="" data-person-id="" runat="server">
     <td>
         <div class="user-cell">
             <div class="avatar">

@@ -1,57 +1,48 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using TaskMaster.Application.BaseInfo.Users;
 using TaskMaster.Application.Interfaces;
 using TaskMaster.Domain.Entities;
+using TaskMaster.Domain.Exceptions;
 using static TaskMaster.Application.BaseInfo.Users.IUserDataAccess;
 
 namespace TaskMaster.Persistence.DataAccess
 {
     public class UserDataAccess(ISearchUsers searchUser, IDb _context) : IUserDataAccess
     {
-        public void Add(IUserDataAccess.Request request)
+        public void Add(User user)
         {
-            _context.Add<User>(request.item.User);
+            _context.Add<User>(user);
         }
 
-        public void Edit(IUserDataAccess.Request request)
-        {
-
-
-            var existingUser = searchUser.Respond(new ISearchUsers.Request { Id = request.Id }).SingleOrDefault(u => u.Id == request.Id);
-
-            if (existingUser == null)
-                throw new Exception("User does not exist");
-
-            var updatedUser = UpdateFields(existingUser, request.User);
-
-            _context.Update<User>(updatedUser);
+        public void Edit(User user)
+        { 
+            _context.Update<User>(user);
         }
 
-        public void Remove(IUserDataAccess.Request request)
+        public void Remove(User user)
         {
-            Person person = request.item.User.Person;
-            _context.Remove<Person>(person);
+            _context.Remove<User>(user);
         }
 
-        public void RemoveById(IUserDataAccess.Request request)
+        public void RemoveById(int id)
         {
-            var hasUser = searchUser.Respond(new ISearchUsers.Request { Id = request.Id }).Any();
+            //var hasUser = searchUser.Respond(new ISearchUsers.Request { Id = id }).Any();
 
-            if (!hasUser)
-                return;
+            //if (!hasUser)throw new AppException("user does not Exist");
 
-            _context.DeleteById<User>(request.Id);
+            var user = GetById(id);
+
+
+            Remove(user);
         }
-        public User GetById(IUserDataAccess.Request request)
+        public User GetById(int id)
         {
-            return searchUser.Respond(new ISearchUsers.Request { Id = request.Id }).SingleOrDefault();
+            return searchUser.Respond(out int _, new ISearchUsers.Request { Id = id }).SingleOrDefault();
         }
         public IQueryable<User> GetAllUsers()
         {
-            return searchUser.Respond();
+            return searchUser.Respond(out int _);
         }
         private User UpdateFields(User ExistingUser, User user)
         {
@@ -62,9 +53,9 @@ namespace TaskMaster.Persistence.DataAccess
             return ExistingUser;
         }
 
-        public User GetByUsername(Request request)
+        public User GetByUsername(string username)
         {
-            return searchUser.Respond(new ISearchUsers.Request { Username = request.Username }).SingleOrDefault();
+            return searchUser.Respond(out int _, new ISearchUsers.Request { Username = username }).SingleOrDefault();
         }
     }
 }

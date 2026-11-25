@@ -8,15 +8,8 @@ namespace TaskMaster.Application.BaseInfo.Users
 
         public void Delete(IDeleteUser.Request request)
         {
-
-            userDataAccess.RemoveById(new IUserDataAccess.Request
-            {
-                Id = request.UserId
-            });
-            personDataAccess.RemoveById(new IPersonDataAccess.Request
-            {
-                Id = request.PersonId
-            });
+            userDataAccess.RemoveById(request.UserId);
+            personDataAccess.RemoveById(request.PersonId);
 
             db.SaveChanges();
         }

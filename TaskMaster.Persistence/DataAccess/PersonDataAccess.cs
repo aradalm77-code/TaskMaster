@@ -9,39 +9,31 @@ using TaskMaster.Domain.Entities;
 
 namespace TaskMaster.Persistence.DataAccess
 {
-    internal class PersonDataAccess(IDb db, ISearchPersons searchPersons) : IPersonDataAccess
+    public class PersonDataAccess(IDb db, ISearchPersons searchPersons) : IPersonDataAccess
     {
-        public void Add(IPersonDataAccess.Request request)
+        public void Add(Person person)
         {
-            db.Add<Person>(request.person);
+            db.Add<Person>(person);
         }
 
-        public void Delete(IPersonDataAccess.Request request)
+        public void Delete(int id)
         {
-            db.Remove<Person>(request.person);
+            Person person = GetById(id);
+            db.Remove<Person>(person);
         }
 
-        public void RemoveById(IPersonDataAccess.Request request)
+        public void RemoveById(int id)
         {
-            db.DeleteById<Person>(request.Id);
+            db.DeleteById<Person>(id);
         }
 
-        public void Update(IPersonDataAccess.Request request)
+        public void Update(Person person)
         {
-            var person = searchPersons.Respond(new ISearchPersons.Request { Id = request.Id });
-
-            var UpdatedPerson = ChangeValue((Person)person, request.person);
-
-            db.Update<Person>(UpdatedPerson);
+            db.Update<Person>(person);
         }
-        private Person ChangeValue(Person ExistingPerson, Person person)
+        public Person GetById(int id) 
         {
-            ExistingPerson.FirstName = person.FirstName;
-            ExistingPerson.LastName = person.LastName;
-            ExistingPerson.Age = person.Age;
-            ExistingPerson.Gender = person.Gender;
-
-            return ExistingPerson;
+            return searchPersons.Respond(new ISearchPersons.Request { Id = id }).SingleOrDefault();
         }
     }
 }

@@ -16,6 +16,10 @@ namespace TaskMaster.WebForm
         protected void Application_Start(object sender, EventArgs e)
         {
             var builder = new ContainerBuilder();
+            builder.RegisterType<PersonDataAccess>()
+                    .As<IPersonDataAccess>()
+                    .InstancePerLifetimeScope();
+
             builder.RegisterType<UpdateUser>()
                    .As<IUpdateUser>()
                    .InstancePerLifetimeScope();

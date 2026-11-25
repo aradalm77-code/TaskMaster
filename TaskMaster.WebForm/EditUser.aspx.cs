@@ -32,7 +32,7 @@ namespace TaskMaster.WebForm
             if (!IsPostBack)
             {
                 string id = Request.QueryString["id"];
-                var item = searchUsers.Respond(new ISearchUsers.Request { Id = Convert.ToInt32(id) }).Select(i => new
+                var item = searchUsers.Respond(out int _, new ISearchUsers.Request { Id = Convert.ToInt32(id) }).Select(i => new
                 {
                     i.Person.FirstName,
                     i.Person.LastName,
@@ -144,20 +144,14 @@ namespace TaskMaster.WebForm
             };
             User user = new User
             {
+                Id = Convert.ToInt32(Request.QueryString["id"]),
                 Username = username,
                 Password = password,
                 Role = role == "Intern" ? UserRole.Role.Intern : UserRole.Role.Designer,
                 Person = person
             };
-            string id = Request.QueryString["id"];
 
-            IUpdateUser.Request request = new IUpdateUser.Request
-            {
-                User = user,
-                Id = Convert.ToInt32(id)
-            };
-
-            editUser.EditUser(request);
+            editUser.EditUser(new IUpdateUser.Request { User = user, Person = person});
 
             Response.Redirect("Users.aspx");
         }

@@ -4,14 +4,10 @@ namespace TaskMaster.Application.BaseInfo.Persons
 {
     public interface IPersonDataAccess
     {
-        void Update(Request request);
-        void Delete(Request request);
-        void Add(Request request);
-        void RemoveById(Request request);
-        public class Request
-        {
-            public int Id { get; set; }
-            public Person person { get; set; }
-        }
+        void Update(Person person);
+        void Delete(int id);
+        void Add(Person person);
+        void RemoveById(int id);
+        Person GetById(int id);
     }
 }

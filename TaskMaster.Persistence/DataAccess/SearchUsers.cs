@@ -11,18 +11,21 @@ using TaskMaster.Domain.Entities;
 
 namespace TaskMaster.Persistence.DataAccess
 {
-    public class SearchUsers(IDb db, ISearchPersons searchPersons) : ISearchUsers
+    public class SearchUsers(IDb db) : ISearchUsers
     {
-        public IQueryable<User> Respond(ISearchUsers.Request request = null)
+        public IQueryable<User> Respond(out int totalPages, ISearchUsers.Request request = null)
         {
-            return Respond(request, db.Query<User>());
+            return Respond(request, db.Query<User>(), out totalPages);
         }
 
-        private IQueryable<User> Respond(ISearchUsers.Request request, IQueryable<User> items)
+        private IQueryable<User> Respond(ISearchUsers.Request request, IQueryable<User> items , out int totalPages)
         {
+            totalPages = 0;
+            
             if (!string.IsNullOrWhiteSpace(request?.SearchItem))
             {
                 items = items.Where(e => e.Username.Contains(request.SearchItem.Replace(" ", "")));
+
             }
             if (!string.IsNullOrWhiteSpace(request?.Username))
             {
@@ -32,12 +35,11 @@ namespace TaskMaster.Persistence.DataAccess
             {
                 items = items.Where(e => e.Id == request.Id);
             }
-            if (request?.PersonRequest != null)
+            if (request.PgeSize != 0 || request.PageNumber is not null)
             {
-                items = from user in items
-                join person in searchPersons.Respond(request.PersonRequest)
-                on user.PersonId equals person.Id
-                        select user;
+                int totalItems = items.Count();
+                totalPages = (int)Math.Ceiling((double)totalItems / request.PgeSize);
+                items = items.OrderBy(u => u.Id).Skip((int)request.PageNumber * request.PgeSize).Take((int)request.PgeSize);
             }
 
             return items;

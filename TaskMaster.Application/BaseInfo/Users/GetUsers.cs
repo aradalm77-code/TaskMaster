@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using TaskMaster.Application.Interfaces;
 using TaskMaster.Domain.Entities;
 
 namespace TaskMaster.Application.BaseInfo.Users

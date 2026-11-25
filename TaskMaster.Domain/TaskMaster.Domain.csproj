@@ -56,7 +56,7 @@
     <Compile Include="Enums\Gender.cs" />
     <Compile Include="Enums\UserLevel.cs" />
     <Compile Include="Enums\UserRole.cs" />
-    <Compile Include="Exceptions\UserAlreadyExistException.cs" />
+    <Compile Include="Exceptions\AppException.cs" />
     <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

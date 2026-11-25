@@ -7,7 +7,6 @@ namespace TaskMaster.Application.BaseInfo.Users
         void EditUser(Request request);
         public class Request
         {
-            public int Id { get; set; }
             public Person Person { get; set; }
             public User User { get; set; }
         }
