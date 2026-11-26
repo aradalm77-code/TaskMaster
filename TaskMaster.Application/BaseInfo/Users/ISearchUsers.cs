@@ -14,13 +14,7 @@ namespace TaskMaster.Application.BaseInfo.Users
             public string SearchItem { get; set; }
             public int Id { get; set; }
             public int PgeSize { get; set; }
-            public int? PageNumber {  get; set; }
-            public ISearchPersons.Request PersonRequest { get; set; }
-        }
-        public class RespondDTO
-        {
-            public int TotalPages { get; set; }
-            public IQueryable<User> Users { get; set; }
+            public int? PageNumber { get; set; }
         }
     }
 }

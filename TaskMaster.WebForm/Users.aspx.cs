@@ -1,7 +1,7 @@
 ﻿
 using System;
 using System.Linq;
-using System.Web.UI;
+using System.Web;
 using System.Web.UI.WebControls;
 
 using TaskMaster.Application.BaseInfo.Persons;
@@ -12,12 +12,7 @@ namespace TaskMaster.WebForm
 {
     public partial class Users : System.Web.UI.Page
     {
-        // Dependencies
-        public ISearchUsers searchUser { get; set; }
-
-        public ISearchPersons searchPersons { get; set; }
-
-        // Current page (zero-based)
+        public ISearchUsers SearchUser { get; set; }
         public int CurrentPageNumber
         {
             get
@@ -31,9 +26,8 @@ namespace TaskMaster.WebForm
                 ViewState["CurrentPageNumber"] = value;
             }
         }
-
-        // Total pages
-        public int Totalpages
+        
+        private int Totalpages
         {
             get
             {
@@ -52,11 +46,14 @@ namespace TaskMaster.WebForm
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                CurrentPageNumber = 0;
-                LoadUsers();
-            }
+            if (IsPostBack) return;
+
+            HttpCookie username = Request.Cookies["Username"];
+
+            //if (username is null) Response.Redirect("./Login.aspx");
+            CurrentPageNumber = 0;
+            LoadUsers();
+
         }
 
         // Search
@@ -69,42 +66,33 @@ namespace TaskMaster.WebForm
         // Load users
         private void LoadUsers()
         {
-            if (searchUser == null)
-            {
-                throw new InvalidOperationException(
-                    "ISearchUsers has not been initialized. Check dependency injection.");
-            }
-
             var request = new ISearchUsers.Request
             {
                 SearchItem = txtSearch.Text.Trim(),
                 PageNumber = CurrentPageNumber,
                 PgeSize = PageSize
             };
-
-            // Get paginated users
-            var result = searchUser.Respond(
+            
+            var result = SearchUser.Respond(
                 out int totalPages,
                 request
             );
 
             Totalpages = totalPages;
-
-            // Handle empty results
+            
             if (Totalpages <= 0)
             {
                 CurrentPageNumber = 0;
             }
             else
             {
-                // Keep current page inside valid range
                 if (CurrentPageNumber >= Totalpages)
                 {
                     CurrentPageNumber = Totalpages - 1;
 
                     request.PageNumber = CurrentPageNumber;
 
-                    result = searchUser.Respond(
+                    result = SearchUser.Respond(
                         out totalPages,
                         request
                     );
@@ -112,8 +100,7 @@ namespace TaskMaster.WebForm
                     Totalpages = totalPages;
                 }
             }
-
-            // Prepare data for Repeater
+            
             var items = result
                 .Select(user => new
                 {
@@ -121,12 +108,10 @@ namespace TaskMaster.WebForm
                     Person = user.Person
                 })
                 .ToList();
-
-            // Register ItemDataBound without duplicate subscriptions
+            
             UsersRepeater.ItemDataBound -= UsersRepeater_ItemDataBound;
             UsersRepeater.ItemDataBound += UsersRepeater_ItemDataBound;
-
-            // Bind data
+            
             UsersRepeater.DataSource = items;
             UsersRepeater.DataBind();
 
@@ -142,9 +127,8 @@ namespace TaskMaster.WebForm
                 Totalpages > 0 &&
                 CurrentPageNumber < Totalpages - 1;
         }
-
-        // Repeater ItemDataBound
-        protected void UsersRepeater_ItemDataBound(
+        
+        private void UsersRepeater_ItemDataBound(
             object sender,
             RepeaterItemEventArgs e)
         {

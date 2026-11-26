@@ -85,12 +85,13 @@
     <Compile Include="BaseInfo\Persons\IPersonDataAccess.cs" />
     <Compile Include="BaseInfo\Users\CreateUser.cs" />
     <Compile Include="BaseInfo\Users\DeleteUser.cs" />
+    <Compile Include="BaseInfo\Users\IHashPassword.cs" />
+    <Compile Include="BaseInfo\Users\ILoginUser.cs" />
+    <Compile Include="BaseInfo\Users\LoginUser.cs" />
     <Compile Include="BaseInfo\Users\UpdateUser.cs" />
-    <Compile Include="BaseInfo\Users\GetUsers.cs" />
     <Compile Include="BaseInfo\Users\ICreateUser.cs" />
     <Compile Include="BaseInfo\Users\IDeleteUser.cs" />
     <Compile Include="BaseInfo\Users\IUpdateUser.cs" />
-    <Compile Include="BaseInfo\Users\IGetUsers.cs" />
     <Compile Include="BaseInfo\Persons\ISearchPersons.cs" />
     <Compile Include="BaseInfo\Users\ISearchUsers.cs" />
     <Compile Include="BaseInfo\Users\IUserDataAccess.cs" />

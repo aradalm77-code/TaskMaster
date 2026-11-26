@@ -5,10 +5,10 @@ namespace TaskMaster.Application.BaseInfo.Users
 {
     public interface IUserDataAccess
     {
-        void Add(User User);
-        void Remove(User User);
+        void Add(User user);
+        void Remove(User user);
         void RemoveById(int id);
-        void Edit(User User);
+        void Edit(User user);
         IQueryable<User> GetAllUsers();
         User GetById(int id);
         User GetByUsername(string username);

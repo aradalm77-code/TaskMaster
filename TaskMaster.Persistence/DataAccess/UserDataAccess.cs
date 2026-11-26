@@ -1,10 +1,7 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using TaskMaster.Application.BaseInfo.Users;
 using TaskMaster.Application.Interfaces;
 using TaskMaster.Domain.Entities;
-using TaskMaster.Domain.Exceptions;
-using static TaskMaster.Application.BaseInfo.Users.IUserDataAccess;
 
 namespace TaskMaster.Persistence.DataAccess
 {
@@ -16,7 +13,7 @@ namespace TaskMaster.Persistence.DataAccess
         }
 
         public void Edit(User user)
-        { 
+        {
             _context.Update<User>(user);
         }
 
@@ -43,14 +40,6 @@ namespace TaskMaster.Persistence.DataAccess
         public IQueryable<User> GetAllUsers()
         {
             return searchUser.Respond(out int _);
-        }
-        private User UpdateFields(User ExistingUser, User user)
-        {
-            ExistingUser.Role = user.Role;
-            ExistingUser.Password = user.Password;
-            ExistingUser.Username = user.Username;
-
-            return ExistingUser;
         }
 
         public User GetByUsername(string username)

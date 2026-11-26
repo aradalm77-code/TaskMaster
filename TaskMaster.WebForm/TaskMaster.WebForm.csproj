@@ -96,11 +96,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Components\UserItem.ascx" />
+    <Content Include="Css\Login.css" />
     <Content Include="Css\Message.css" />
     <Content Include="Css\Register.css" />
     <Content Include="Default.aspx" />
     <Content Include="EditUser.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="Login.aspx" />
+    <Content Include="Scrypts\Login.js" />
     <Content Include="Users.aspx" />
     <Content Include="Web.config" />
     <Content Include="Components\MessageControl.ascx" />
@@ -137,6 +140,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Users.aspx.cs">

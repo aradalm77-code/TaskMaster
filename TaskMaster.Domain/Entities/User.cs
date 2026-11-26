@@ -16,7 +16,7 @@ namespace TaskMaster.Domain.Entities
         public User()
         {
         }
-        public User(Person person, string firstName, string lastName, string username, string password, UserRole.Role role, int age, PersonGender.Gender gender )
+        public User(Person person, string username, string password, UserRole.Role role)
         {
             Person = person;
             Username = username;

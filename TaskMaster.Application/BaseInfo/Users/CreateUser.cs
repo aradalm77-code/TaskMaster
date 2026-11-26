@@ -3,13 +3,14 @@ using System.Text.RegularExpressions;
 using TaskMaster.Application.Interfaces;
 using TaskMaster.Domain.Entities;
 using TaskMaster.Domain.Enums;
+using TaskMaster.Domain.Exceptions;
 using static TaskMaster.Domain.Enums.PersonGender;
 using static TaskMaster.Domain.Enums.UserRole;
 
 
 namespace TaskMaster.Application.BaseInfo.Users
 {
-    public class CreateUser(IUserDataAccess userDataAccess, IDb db) : ICreateUser
+    public class CreateUser(IUserDataAccess userDataAccess, IDb db, IHashPassword hashPassword) : ICreateUser
     {
         public User UserRegister(ICreateUser.Req req)
         {
@@ -17,44 +18,46 @@ namespace TaskMaster.Application.BaseInfo.Users
             // ---------- input validations ----------
 
             if (string.IsNullOrWhiteSpace(req.UserName))
-                throw new Exception("Please enter your Username name");
+                throw new AppException("Please enter your Username name");
 
             if (string.IsNullOrWhiteSpace(req.FirstName))
-                throw new Exception("Please enter your Firstname");
+                throw new AppException("Please enter your Firstname");
 
             if (string.IsNullOrWhiteSpace(req.LastName))
-                throw new Exception("Please enter your Lastname");
+                throw new AppException("Please enter your Lastname");
 
             if (
                 req.Password.Length < 8 ||
                 !Regex.IsMatch(req.Password, @"[A-Z]") ||
                 !Regex.IsMatch(req.Password, @"[a-z]") ||
                 !Regex.IsMatch(req.Password, @"[^a-zA-Z0-9]"))
-                throw new Exception("Password must contain at least 8 characters," +
+                throw new AppException("Password must contain at least 8 characters," +
                 " one uppercase letter, one lowercase letter, and one special character.");
 
 
 
             if (Convert.ToInt32(req.Age) > 80 || Convert.ToInt32(req.Age) < 9)
-                throw new Exception("Your age must be between 9 and 80");
+                throw new AppException("Your age must be between 9 and 80");
 
             if (string.IsNullOrWhiteSpace(req.Gender))
             {
-                throw new ArgumentException("Please select your gender.");
+                throw new AppException("Please select your gender.");
             }
 
             if (string.IsNullOrWhiteSpace(req.Role))
             {
-                throw new ArgumentException("Please select your role.");
+                throw new AppException("Please select your role.");
             }
 
             var (role, gender) = CastEnums(req.Role, req.Gender);
 
             if (UserExists(req.UserName))
-                throw new Exception("User with this Username already exists");
+                throw new AppException("User with this Username already exists");
+
+            string password = hashPassword.Hash(req.Password);
 
             Person person = new Person(req.FirstName, req.LastName, req.Age, gender);
-            User user = new User(person, req.FirstName, req.LastName, req.UserName, req.Password, role, req.Age, gender);
+            User user = new User(person, req.UserName, password, role);
 
             userDataAccess.Add(user);
             db.SaveChanges();
@@ -65,38 +68,36 @@ namespace TaskMaster.Application.BaseInfo.Users
         private bool UserExists(string username)
         {
             var response = userDataAccess.GetByUsername(username);
-            if (response != null)
-                return true;
-            else
-                return false;
+            if (response != null) return true;
+            return false;
         }
 
-        private (UserRole.Role, Gender) CastEnums(string role, string gender)
+        private (Role, Gender) CastEnums(string role, string gender)
         {
-            PersonGender.Gender _gender = Gender.male;
-            UserRole.Role _role = Role.Designer;
+            Gender castedGender = Gender.Male;
+            Role castedRole = Role.Designer;
 
             switch (gender)
             {
                 case "male":
-                    _gender = Gender.male;
+                    castedGender = Gender.Male;
                     break;
                 case "female":
-                    _gender = Gender.female;
+                    castedGender = Gender.Female;
                     break;
             }
 
             switch (role)
             {
                 case "Designer":
-                    _role = UserRole.Role.Designer;
+                    castedRole = Role.Designer;
                     break;
                 case "Intern":
-                    _role = UserRole.Role.Intern;
+                    castedRole = Role.Intern;
                     break;
             }
 
-            return (_role, _gender);
+            return (castedRole, castedGender);
         }
     }
 }

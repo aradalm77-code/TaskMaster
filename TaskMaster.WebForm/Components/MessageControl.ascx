@@ -80,7 +80,6 @@
 
     <!-- Close Button -->
     <asp:Button
-        ID="btnClose"
         runat="server"
         Text="×"
         CssClass="message-close"

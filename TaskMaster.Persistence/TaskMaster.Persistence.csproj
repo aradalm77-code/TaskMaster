@@ -55,6 +55,7 @@
     <Compile Include="DataAccess\PersonDataAccess.cs" />
     <Compile Include="DataAccess\SearchPersons.cs" />
     <Compile Include="DataAccess\SearchUsers.cs" />
+    <Compile Include="Hash\HashPassword.cs" />
     <Compile Include="MapEntity\UserConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataBaseContext\DataBaseContext.cs" />

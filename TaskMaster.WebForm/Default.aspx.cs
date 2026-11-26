@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Text.RegularExpressions;
-using System.Web.UI;
 using TaskMaster.Application.BaseInfo.Users;
 using TaskMaster.Domain.Exceptions;
 using TaskMaster.WebForm.Components;
@@ -9,7 +7,7 @@ namespace TaskMaster.WebForm
 {
     public partial class Default : System.Web.UI.Page
     {
-        public ICreateUser createUser { get; set; }
+        public ICreateUser CreateUser { get; set; }
         // Selected Gender
         private string _Gender
         {
@@ -127,7 +125,9 @@ namespace TaskMaster.WebForm
                     Role = _Role
                 };
 
-                createUser.UserRegister(req);
+                CreateUser.UserRegister(req);
+
+                Response.Redirect("./Users.aspx");
             }
             catch (AppException ex)
             {

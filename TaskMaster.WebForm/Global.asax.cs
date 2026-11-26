@@ -6,6 +6,7 @@ using TaskMaster.Application.BaseInfo.Users;
 using TaskMaster.Application.Interfaces;
 using TaskMaster.Persistence.DataAccess;
 using TaskMaster.Persistence.DataBaseContext;
+using TaskMaster.Persistence.Hash;
 
 namespace TaskMaster.WebForm
 {
@@ -16,6 +17,14 @@ namespace TaskMaster.WebForm
         protected void Application_Start(object sender, EventArgs e)
         {
             var builder = new ContainerBuilder();
+            builder.RegisterType<HashPassword>()
+                   .As<IHashPassword>()
+                   .InstancePerLifetimeScope();
+
+            builder.RegisterType<LoginUser>()
+                   .As<ILoginUser>()
+                   .InstancePerLifetimeScope();
+
             builder.RegisterType<PersonDataAccess>()
                     .As<IPersonDataAccess>()
                     .InstancePerLifetimeScope();
@@ -45,9 +54,6 @@ namespace TaskMaster.WebForm
                    .InstancePerLifetimeScope();
             builder.RegisterType<DeleteUser>()
                    .As<IDeleteUser>()
-                   .InstancePerLifetimeScope();
-            builder.RegisterType<GetUsers>()
-                   .As<IGetUsers>()
                    .InstancePerLifetimeScope();
 
             var container = builder.Build();

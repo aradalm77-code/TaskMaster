@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using TaskMaster.Application.BaseInfo.Persons;
 using TaskMaster.Application.Interfaces;
 using TaskMaster.Domain.Entities;
@@ -26,7 +22,7 @@ namespace TaskMaster.Persistence.DataAccess
             {
                 items = items.Where(p => p.FirstName.Contains(request.SearchItem) || p.LastName.Contains(request.SearchItem));
             }
-            
+
             return items;
         }
 

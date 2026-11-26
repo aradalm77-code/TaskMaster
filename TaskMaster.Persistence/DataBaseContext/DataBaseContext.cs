@@ -1,5 +1,4 @@
 ﻿using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using TaskMaster.Application.Interfaces;
 using TaskMaster.Domain.Entities;
@@ -7,11 +6,8 @@ using TaskMaster.Persistence.MapEntity;
 
 namespace TaskMaster.Persistence.DataBaseContext
 {
-    public class DataBaseContext : DbContext, IDb
+    public class DataBaseContext(string connectionString) : DbContext(connectionString), IDb
     {
-        public DataBaseContext() : base("name=DefaultConnection")
-        {
-        }
         public DbSet<User> Users { get; set; }
 
 
@@ -40,11 +36,6 @@ namespace TaskMaster.Persistence.DataBaseContext
             }
             base.Set<TEntity>().Remove(entity);
         }
-
-        IQueryable<TEntity> IDb.Set<TEntity>()
-        {
-            return base.Set<TEntity>();
-        }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new UserConfiguration());
@@ -52,7 +43,7 @@ namespace TaskMaster.Persistence.DataBaseContext
         }
         public void Update<TEntity>(TEntity entity) where TEntity : class
         {
-            base.Entry(entity).State = EntityState.Modified;
+            Entry(entity).State = EntityState.Modified;
         }
     }
 }

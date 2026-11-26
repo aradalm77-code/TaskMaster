@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using TaskMaster.Application.BaseInfo.Persons;
 using TaskMaster.Application.BaseInfo.Users;
 using TaskMaster.Domain.Entities;
 using TaskMaster.Domain.Enums;
@@ -10,8 +9,6 @@ namespace TaskMaster.WebForm
     public partial class EditUser : System.Web.UI.Page
     {
         public IUpdateUser editUser { get; set; }
-        public IUserDataAccess userDataAccess { get; set; }
-        public ISearchPersons searchPersons { get; set; }
         public ISearchUsers searchUsers { get; set; }
         // Selected Gender
         private string _Gender
@@ -49,7 +46,7 @@ namespace TaskMaster.WebForm
                     txtLastName.Text = item.LastName;
                     txtUsername.Text = item.Username;
                     tboxAge.Text = item.Age.ToString();
-                    _Gender = item.Gender == PersonGender.Gender.male ? "male" : "female";
+                    _Gender = item.Gender == PersonGender.Gender.Male ? "male" : "female";
                     _Role = item.Role == UserRole.Role.Intern ? "Intern" : "Designer";
                     UpdateGenderSelection();
                     UpdateRoleSelection();
@@ -139,7 +136,7 @@ namespace TaskMaster.WebForm
             {
                 FirstName = firstName,
                 LastName = lastName,
-                Gender = gender == "male" ? PersonGender.Gender.male : PersonGender.Gender.female,
+                Gender = gender == "male" ? PersonGender.Gender.Male : PersonGender.Gender.Female,
                 Age = int.TryParse(ageText, out int age) ? age : 0
             };
             User user = new User
@@ -151,7 +148,7 @@ namespace TaskMaster.WebForm
                 Person = person
             };
 
-            editUser.EditUser(new IUpdateUser.Request { User = user, Person = person});
+            editUser.EditUser(new IUpdateUser.Request { User = user, Person = person });
 
             Response.Redirect("Users.aspx");
         }

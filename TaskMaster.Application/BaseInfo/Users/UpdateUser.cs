@@ -3,7 +3,6 @@ using System.Text.RegularExpressions;
 using TaskMaster.Application.BaseInfo.Persons;
 using TaskMaster.Application.Interfaces;
 using TaskMaster.Domain.Exceptions;
-using static TaskMaster.Application.BaseInfo.Users.ICreateUser;
 
 namespace TaskMaster.Application.BaseInfo.Users
 {
